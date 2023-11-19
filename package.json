@@ -1,0 +1,32 @@
+{
+  "name": "hexo-butterfly-recommend",
+  "version": "1.0.0",
+  "description": "hexo-theme-butterfly主题的扩展，首页推荐",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "directories": {
+    "lib": "./lib"
+  },
+  "files": [
+    "lib/",
+    "index.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/weizwz/hexo-butterfly-recommend.git"
+  },
+  "keywords": [
+    "hexo",
+    "butterfly",
+    "theme-butterfly",
+    "plugin"
+  ],
+  "author": "weizwz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/weizwz/hexo-butterfly-recommend/issues"
+  },
+  "homepage": "https://github.com/weizwz/hexo-butterfly-recommend#readme"
+}
