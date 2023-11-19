@@ -23,6 +23,10 @@
     "theme-butterfly",
     "plugin"
   ],
+  "dependencies": {
+    "hexo-renderer-stylus": "^3.0.0",
+    "hexo-renderer-pug": "^3.0.0"
+  },
   "author": "weizwz",
   "license": "MIT",
   "bugs": {

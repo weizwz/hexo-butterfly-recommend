@@ -1,0 +1,16 @@
+:root {
+  --butterfly_recommend: brown;
+}
+/* 兼容性修改 */
+#content-inner {
+  flex-wrap: wrap;
+}
+#recent-posts {
+  width: 74%;
+}
+#recommend {
+  width: 100%;
+  padding: 30px;
+  margin-bottom: 20px;
+  display: flex;
+}
