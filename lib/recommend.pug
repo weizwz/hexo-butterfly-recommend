@@ -14,15 +14,20 @@
             - const oddNum = banner_skill.filter((x, index) => index % 2 === 1);
             each item, index in banner_skill
               if ((index + 1 <= evenNum.length) && (index + 1 <= oddNum.length))
-                .tags-group-icon-pair
-                  .tags-group-icon(style=`background: ${evenNum[index].background}`)
+                .recommend-tags-column
+                  .recommend-tags-icon(style=`background: ${evenNum[index].background}`)
                     i(class=`${evenNum[index].icon}` style=`color: ${evenNum[index].color}`)
-                  .tags-group-icon(style=`background: ${oddNum[index].background}`)
+                  .recommend-tags-icon(style=`background: ${oddNum[index].background}`)
                     i(class=`${oddNum[index].icon}` style=`color: ${oddNum[index].color}`)
       a#recommend-banner-hover(onclick='toRandomPost()')
         span.bannerText 随便逛逛
         i.fas.fa-arrow-right.banner-righticon
     #recommend-category
+      each item, index in category
+        .recommend-categoryItem
+            a.recommend-categoryItem-button(href=`${item.path}` style=`background: linear-gradient(to right, ${item.color[0]}, ${item.color[1]})`)
+              span.recommend-categoryItem-text=`${item.name}`
+              i(class=`${item.icon}`)
   #recommend-post.recommend-wrapper
     #recommend-post-main
     #recommend-post-list

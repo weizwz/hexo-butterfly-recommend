@@ -68,9 +68,9 @@ hexo.extend.filter.register('after_generate', function () {
   ]
   // 获取分类项目
   const category = config.category ? config.category : [
-    { name: '必看精选', path: '/categories/精选/', shadow: 'var(--anzhiyu-shadow-blue)' },
-    { name: '热门文章', path: '/categories/热门/', shadow: 'var(--anzhiyu-shadow-red)' },
-    { name: '优质资源', path: '/categories/资源/', shadow: 'var(--anzhiyu-shadow-green)' }
+    { name: '必看精选', path: '/categories/精选/', icon: 'fa-solid fa-star', color: ['#358bff', '#15c6ff'] },
+    { name: '热门文章', path: '/categories/热门/', icon: 'fa-solid fa-fire', color: ['#f65', '#ffbf37'] },
+    { name: '优质资源', path: '/categories/资源/', icon: 'fa-solid fa-gem', color: ['#18e7ae', '#1eebeb'] }
   ]
 
   /**

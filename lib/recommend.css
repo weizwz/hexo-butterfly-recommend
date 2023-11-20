@@ -21,19 +21,16 @@
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
 }
 .recommend-wrapper { 
   width: calc(50% - 0.5rem);
   margin-right: 1rem;
-  height: 360px;
+  height: calc(360px + 1rem);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border-radius: var(--recommend-radius);
-}
-#recommend-banner {
-  /* overflow: inherit; */
 }
 #recommend-post {
   overflow: hidden;
@@ -58,7 +55,7 @@
 }
 .recommend-banner-title-wrapper {
   top: 2rem;
-  left: 1.5rem;
+  left: 2rem;
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -85,18 +82,18 @@
   flex-wrap: nowrap;
   animation: rowup 60s linear infinite;
 }
-.tags-group-icon-pair .tags-group-icon:nth-child(even) {
+.recommend-tags-column .recommend-tags-icon:nth-child(even) {
   margin-top: 1rem;
   transform: translate(-60px)
 }
-.tags-group-icon-pair {
+.recommend-tags-column {
   margin-left: 1rem;
   user-select: none
 }
-.tags-group-icon-pair a img {
+.recommend-tags-column a img {
   border-radius: 50%!important
 }
-.tags-group-icon {
+.recommend-tags-icon {
   width: 120px;
   height: 120px;
   border-radius: 30px;
@@ -106,55 +103,122 @@
   color: #fff;
   box-shadow: var(--recommend-skill-shadow);
 }
-.tags-group-icon > i {
+.recommend-tags-icon > i {
   font-size: 66px;
 }
+#recommend-banner-hover {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: var(--recommend-main);
+  color: var(--recommend-card-bg);
+  padding-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+  transition: cubic-bezier(.71,.15,.16,1.15) .6s;
+}
+#recommend-banner-wrapper:hover #recommend-banner-hover {
+  opacity: 1;
+  padding-left: 2rem;
+  background: var(--recommend-deep);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transition: .3s;
+  background-size: 200%;
+  cursor: pointer;
+}
+.bannerText {
+  font-size: 5rem;
+  line-height: 6rem;
+  font-weight: 700;
+}
+#recommend-banner-wrapper #recommend-banner-hover i {
+  font-size: 80px;
+  opacity: .4;
+}
 
+
+/* 分类 */
 #recommend-category {
   display: flex;
+  flex-direction:row;
   width: 100%;
   height: 25%;
+  animation: slide-in .6s .2s backwards
+}
+.recommend-categoryItem {
+  width: calc(100% / 3 - .66rem);
+  height: 100%;
+  margin-right: 1rem;
   border-radius: var(--recommend-radius);
   box-shadow: var(--recommend-shadow);
+  overflow: hidden;
+  transform: scale(1);
+  transition: all .8s cubic-bezier(.65,.15,.37,1.19);
 }
-@media screen and (min-width: 1200px) {
-  #recommend-banner-hover {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: var(--recommend-main);
-    color: var(--recommend-card-bg);
-    padding-left: 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    opacity: 0;
-    transition: cubic-bezier(.71,.15,.16,1.15) .6s;
-  }
-  #recommend-banner-wrapper:hover #recommend-banner-hover {
-    opacity: 1;
-    padding-left: 2rem;
-    background: var(--recommend-deep);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    transform-style: preserve-3d;
-    transition: .3s;
-    background-size: 200%;
-    cursor: pointer;
-  }
-  .bannerText {
-    font-size: 5rem;
-    line-height: 6rem;
-    font-weight: 700;
-  }
-  #recommend-banner-wrapper #recommend-banner-hover i {
-    font-size: 80px;
-    opacity: .4;
-  }
+.recommend-categoryItem:last-child {
+  margin-right: 0;
+}
+.recommend-categoryItem:hover {
+  width: 50%;
+}
+.recommend-categoryItem:nth-child(3) {
+  display: flex;
+}
+.recommend-categoryItem-button {
+  height: 100%;
+  width: 100%;
+  border-radius: var(--recommend-radius);
+  display: inline-block;
+  text-align: left;
+  line-height: 5em;
+  font-weight: 700;
+  transition: all .8s cubic-bezier(.39,.575,.565,1);
+  transform: scale(1);
+  overflow: hidden;
+}
+.recommend-categoryItem-button:after {
+  top: 55%;
+  width: 1.2rem;
+  left: 21px;
+  height: 2px;
+  background: #fff;
+  content: "";
+  border-radius: 1px;
+  position: absolute;
+}
+.recommend-categoryItem-text {
+  color: #fff;
+  padding-left: 20px;
+  font-size: 1.2rem;
+}
+.recommend-categoryItem-button > i {
+  font-size: 5rem;
+  opacity: .3;
+  position: absolute;
+  right: 2%;
+  top: 30%;
+  transition: .3s;
+  color: #fff;
+  width: 100px;
+  text-align: center;
+  filter: blur(2px);
+  transform: scale(1) rotate(15deg);
+}
+.recommend-categoryItem:hover .recommend-categoryItem-button > i {
+  opacity: .8;
+  transition: .8s;
+  transition-delay: .15s;
+  transform: scale(1.03) rotate(0);
+  font-size: 2.5rem;
+  filter: blur(0);
 }
 /*  ======================动画=========================== */
 @keyframes rowup {
