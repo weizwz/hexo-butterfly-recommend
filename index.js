@@ -1,13 +1,13 @@
-'use strict'
+'use strict';
 // 全局声明插件代号
-const pluginname = 'butterfly_recommend'
+const pluginname = 'butterfly_recommend';
 // 全局声明依赖
-const pug = require('pug')
-const path = require('path')
-const fs = require('hexo-fs')
-const util = require('hexo-util')
-const urlFor = util.url_for.bind(hexo)
-const { version } = require('./package.json')
+const pug = require('pug');
+const path = require('path');
+const fs = require('hexo-fs');
+const util = require('hexo-util');
+const urlFor = util.url_for.bind(hexo);
+const { version } = require('./package.json');
 
 // 注册静态资源
 hexo.extend.generator.register('recommend_lib', () => [
@@ -23,30 +23,43 @@ hexo.extend.generator.register('recommend_lib', () => [
 // hexo过滤器 https://hexo.io/zh-cn/api/filter
 hexo.extend.filter.register('after_generate', function () {
   // 获取整体的配置项名称
-  const config = hexo.config.recommend || hexo.theme.config.recommend
+  const config = hexo.config.recommend || hexo.theme.config.recommend;
   // 如果配置开启
-  if (!(config && config.enable)) return
+  if (!(config && config.enable)) return;
 
   /**
    * 获取所有文章 过滤推荐文章
    */
-  var posts_list = hexo.locals.get('posts').data
+  const posts_list = hexo.locals.get('posts').data;
   var recommend_list = [];
-  var posts_path = [];
-  // 若文章的front_matter内设置了index和描述，则将其放到recommend_list内
-  for (var item of posts_list) {
-    posts_path.push(item.path);
-    if (item.recommend_index) {
-      recommend_list.push(item);
+  var recommend_cover = posts_list[0];
+  if (config.post) {
+    const recommend_paths = config.post.paths;
+    const recommend_cover_path = config.post.cover;
+    // 遍历查找 recommend_list
+    for (const temp of recommend_paths) {
+      for (const item of posts_list) {
+        if (temp === item.path) {
+          recommend_list.push(item);
+          break;
+        }
+      }
     }
+    // 遍历查找 cover
+    for (const item of posts_list) {
+      if (item.path === recommend_cover_path) {
+        recommend_cover = item;
+        break;
+      }
+    }
+    console.log(recommend_cover.path);
   }
-  // 对recommend_list进行处理，使其按照index大小进行排序
-  function sortNumber(a, b) {
-    return a.recommend_index - b.recommend_index
+  // 获取所有文章路径，用于随机跳转
+  var posts_path = [];
+  for (const item of posts_list) {
+    posts_path.push(item.path);
   }
-  recommend_list = recommend_list.sort(sortNumber)
-  // 排序反转，使得数字越大越靠前
-  recommend_list = recommend_list.reverse()
+
 
   // 获取技能
   const skill = config.banner.skill && config.banner.skill.length > 0 ? config.banner.skill : [
@@ -102,9 +115,10 @@ hexo.extend.filter.register('after_generate', function () {
     layout_type: config.layout.type,
     layout_name: config.layout.name,
     layout_index: config.layout.index ? config.layout.index : 0,
-    recommend_list: recommend_list,
+    recommend_list,
+    recommend_cover,
     gsap_js: config.gsap_js ? urlFor(config.gsap_js) : 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.0/gsap.min.js',
-    category: category
+    category
   }
 
   /**
