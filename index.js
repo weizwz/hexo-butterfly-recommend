@@ -90,7 +90,7 @@ hexo.extend.filter.register('after_generate', function () {
    */
   // 集体声明配置项
   const data = {
-    banner_title: config.banner.title && config.banner.title.length > 0 ? config.banner.title : ['无限热爱', '技术与生活', 'WEIZWZ.COM'],
+    banner_title: config.banner.title && config.banner.title.length > 0 ? config.banner.title : ['无限热爱', '生活与技术', 'WEIZWZ.COM'],
     banner_skill: {
       skill,
       cycle: banner_skill_cycle,
