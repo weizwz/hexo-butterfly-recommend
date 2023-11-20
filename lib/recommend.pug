@@ -8,26 +8,20 @@
           .recommend-banner-title=item
       .recommend-tags-all
         .recommend-tags-wrapper
-          each i in banner_skill
+          //- 循环两遍，避免断层
+          each val in [1, 2]
             - const evenNum = banner_skill.filter((x, index) => index % 2 === 0);
             - const oddNum = banner_skill.filter((x, index) => index % 2 === 1);
             each item, index in banner_skill
               if ((index + 1 <= evenNum.length) && (index + 1 <= oddNum.length))
                 .tags-group-icon-pair
-                  .tags-group-icon(style=`background: ${evenNum[index].color}`)
-                    img(src=evenNum[index].icon, onerror='this.onerror=null,this.src="/img/friend_404.gif"', title=evenNum[index].name, alt=evenNum[index].name)
-                  .tags-group-icon(style=`background: ${oddNum[index].color}`)
-                    img(src=oddNum[index].icon, onerror='this.onerror=null,this.src="/img/friend_404.gif"', title=oddNum[index].name, alt=oddNum[index].name)
-          each i in banner_skill
-            - const evenNum = banner_skill.filter((x, index) => index % 2 === 0);
-            - const oddNum = banner_skill.filter((x, index) => index % 2 === 1);
-            each item, index in banner_skill
-              if ((index + 1 <= evenNum.length) && (index + 1 <= oddNum.length))
-                .tags-group-icon-pair
-                  .tags-group-icon(style=`background: ${evenNum[index].color}`)
-                    img(src=evenNum[index].icon, onerror='this.onerror=null,this.src="/img/friend_404.gif"', title=evenNum[index].name, alt=evenNum[index].name)
-                  .tags-group-icon(style=`background: ${oddNum[index].color}`)
-                    img(src=oddNum[index].icon, onerror='this.onerror=null,this.src="/img/friend_404.gif"', title=oddNum[index].name, alt=oddNum[index].name)
+                  .tags-group-icon(style=`background: ${evenNum[index].background}`)
+                    i(class=`${evenNum[index].icon}` style=`color: ${evenNum[index].color}`)
+                  .tags-group-icon(style=`background: ${oddNum[index].background}`)
+                    i(class=`${oddNum[index].icon}` style=`color: ${oddNum[index].color}`)
+      a#recommend-banner-hover(onclick='toRandomPost()')
+        span.bannerText 随便逛逛
+        i.fas.fa-arrow-right.banner-righticon
     #recommend-category
   #recommend-post.recommend-wrapper
     #recommend-post-main

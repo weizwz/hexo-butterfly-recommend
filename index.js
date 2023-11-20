@@ -19,6 +19,7 @@ hexo.extend.generator.register('recommend_lib', () => [
   }
 ])
 
+
 // hexo过滤器 https://hexo.io/zh-cn/api/filter
 hexo.extend.filter.register('after_generate', function () {
   // 获取整体的配置项名称
@@ -30,11 +31,13 @@ hexo.extend.filter.register('after_generate', function () {
    * 获取所有文章 过滤推荐文章
    */
   var posts_list = hexo.locals.get('posts').data
-  var recommend_list = []
+  var recommend_list = [];
+  var posts_path = [];
   // 若文章的front_matter内设置了index和描述，则将其放到recommend_list内
   for (var item of posts_list) {
+    posts_path.push(item.path);
     if (item.recommend_index) {
-      recommend_list.push(item)
+      recommend_list.push(item);
     }
   }
   // 对recommend_list进行处理，使其按照index大小进行排序
@@ -44,21 +47,24 @@ hexo.extend.filter.register('after_generate', function () {
   recommend_list = recommend_list.sort(sortNumber)
   // 排序反转，使得数字越大越靠前
   recommend_list = recommend_list.reverse()
-  // console.log('recommend_list', recommend_list)
+  // console.log('recommend_list', recommend_list[0])
 
   // 获取技能
   const defaultSkill = [
-    { name: 'Vue', color: "#b8f0ae", icon: 'https://cdn.bywind.xyz/img/banners/vue.webp' },
-    { name: 'Java', color: "#fffff", icon: 'https://cdn.bywind.xyz/img/banners/Java.webp' },
-    { name: 'Docker', color: "#57b6e6", icon: 'https://cdn.bywind.xyz/img/banners/docker.webp' },
-    { name: 'Webpack', color: "#2e3a41", icon: 'https://cdn.bywind.xyz/img/banners/webpack.webp' },
-    { name: 'Photoshop', color: "#4082c3", icon: 'https://cdn.bywind.xyz/img/banners/PS.webp' },
-    { name: 'Swift', color: "#eb6840", icon: 'https://cdn.bywind.xyz/img/banners/swift.webp' },
-    { name: 'Python', color: "#fff", icon: 'https://cdn.bywind.xyz/img/banners/python.webp' },
-    { name: 'Node', color: "#333", icon: 'https://cdn.bywind.xyz/img/banners/node-logo.svg' },
-    { name: 'Git', color: "#df5b40", icon: 'https://cdn.bywind.xyz/img/banners/git.webp' },
-    { name: 'Css', color: "#2c51db", icon: 'https://cdn.bywind.xyz/img/banners/css.webp' },
-    { name: 'Js', color: "#f7cb4f", icon: 'https://cdn.bywind.xyz/img/banners/js.webp' },
+    { name: 'Html', background: "#e9572b", color: "#fff", icon: 'fa-brands fa-html5' },
+    { name: 'Css', background: "#2c51db", color: "#fff", icon: 'fa-brands fa-css3-alt' },
+    { name: 'Sass', background: "#ca6496", color: "#fff", icon: 'fa-brands fa-sass' },
+    { name: 'Bootstrap', background: "#563e7c", color: "#fff", icon: 'fa-brands fa-bootstrap' },
+    { name: 'Js', background: "#f7cb4f", color: "#fff", icon: 'fa-brands fa-js' },
+    { name: 'Vue', background: "#42b883", color: "#fff", icon: 'fa-brands fa-vuejs' },
+    { name: 'Angular', background: "#bd0102", color: "#fff", icon: 'fa-brands fa-angular' },
+    { name: 'Java', background: "#537a99", color: "#fff", icon: 'fa-brands fa-java' },
+    { name: 'Jenkins', background: "#335061", color: "#fff", icon: 'fa-brands fa-jenkins' },
+    { name: 'Docker', background: "#57b6e6", color: "#fff", icon: 'fa-brands fa-docker' },
+    { name: 'Swift', background: "#f18135", color: "#fff", icon: 'fa-brands fa-swift' },
+    { name: 'Python', background: "#3776ab", color: "#fff", icon: 'fa-brands fa-python' },
+    { name: 'Node', background: "#37322e", color: "#7dbd05", icon: 'fa-brands fa-node' },
+    { name: 'Git', background: "#df5b40", color: "#fff", icon: 'fa-brands fa-git-alt' },
   ]
   // 获取分类项目
   const category = config.category ? config.category : [
@@ -144,6 +150,12 @@ hexo.extend.filter.register('after_generate', function () {
     else if (epage === cpage) {
       ${pluginname}_injector_config();
     }
+    function toRandomPost() {
+      var posts_path = "${posts_path}".split(',');
+      var randPost = posts_path[Math.floor(Math.random() * posts_path.length)];
+      if (typeof pjax !== 'undefined') pjax.loadUrl('/' + randPost);
+      else window.location.href = randPost;
+    }
   </script>`
 
   // 此处利用挂载容器实现了二级注入
@@ -159,3 +171,4 @@ hexo.extend.filter.register('after_generate', function () {
     return css(`/css/recommend.css?v=${version}`)
   },'home')
 })
+
