@@ -1,6 +1,6 @@
 :root {
   --recommend-main: #409eff;
-  --recommend-deep: rgba(0, 117, 255, .9);
+  --recommend-deep: rgba(0, 117, 255, .8);
   --recommend-margin: 1rem;
   --recommend-card-bg: #fff;
   --recommend-radius: 8px;
