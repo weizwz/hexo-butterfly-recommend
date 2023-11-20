@@ -78,16 +78,14 @@ hexo.extend.filter.register('after_generate', function () {
    */
   // 集体声明配置项
   const data = {
-    banner_title: config.banner.title && config.banner.title.length > 0 ? config.banner.title : ['无限活力', '与热爱生活', 'WEIZWZ.COM'],
+    banner_title: config.banner.title && config.banner.title.length > 0 ? config.banner.title : ['无限热爱', '技术与生活', 'WEIZWZ.COM'],
     banner_skill: config.banner.skill && config.banner.skill.length > 0 ? config.banner.skill : defaultSkill,
-    pjaxenable: hexo.theme.config.pjax.enable,
-    enable_page: config.enable_page ? config.enable_page : 'all',
+    enable_page: config.enable_page ? config.enable_page : '/',
     exclude: config.exclude,
     timemode: config.timemode ? config.timemode : 'date',
     layout_type: config.layout.type,
     layout_name: config.layout.name,
     layout_index: config.layout.index ? config.layout.index : 0,
-    error_img: config.error_img ? urlFor(config.error_img) : 'https://cdn.cbd.int/akilar-candyassets/image/loading.gif',
     insertposition: config.insertposition ? config.insertposition : 'afterbegin',
     recommend_list: recommend_list,
     default_descr: config.default_descr ? config.default_descr : '再怎么看我也不知道怎么描述它的啦！',
