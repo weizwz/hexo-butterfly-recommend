@@ -140,15 +140,15 @@
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    -webkit-transform-style: preserve-3d;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
     transition: .3s;
     background-size: 200%;
     cursor: pointer;
   }
   .bannerText {
-    font-size: 4rem;
-    line-height: 5rem;
+    font-size: 5rem;
+    line-height: 6rem;
     font-weight: 700;
   }
   #recommend-banner-wrapper #recommend-banner-hover i {
