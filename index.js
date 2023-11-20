@@ -47,10 +47,9 @@ hexo.extend.filter.register('after_generate', function () {
   recommend_list = recommend_list.sort(sortNumber)
   // 排序反转，使得数字越大越靠前
   recommend_list = recommend_list.reverse()
-  // console.log('recommend_list', recommend_list[0])
 
   // 获取技能
-  const defaultSkill = [
+  const skill = config.banner.skill && config.banner.skill.length > 0 ? config.banner.skill : [
     { name: 'Html', background: "#e9572b", color: "#fff", icon: 'fa-brands fa-html5' },
     { name: 'Css', background: "#2c51db", color: "#fff", icon: 'fa-brands fa-css3-alt' },
     { name: 'Sass', background: "#ca6496", color: "#fff", icon: 'fa-brands fa-sass' },
@@ -66,8 +65,21 @@ hexo.extend.filter.register('after_generate', function () {
     { name: 'Node', background: "#37322e", color: "#7dbd05", icon: 'fa-brands fa-node' },
     { name: 'Git', background: "#df5b40", color: "#fff", icon: 'fa-brands fa-git-alt' },
   ]
+  // 技能在界面分上下两组，无缝循环需要每组至少12个技能
+  const line_minSkill = 12;
+  const minSkill = skill.length % 2 === 0 ? (skill.length / 2) : Math.floor(skill.length / 2);
+  var maxSkill = skill.length % 2 === 0 ? (skill.length / 2) : Math.ceil(skill.length / 2);
+  // 设置maxSkill是为了保持上下组技能数相同
+  maxSkill = maxSkill >= line_minSkill ? maxSkill : line_minSkill;
+  const banner_skill_cycle_length = minSkill === 0 ? line_minSkill : Math.ceil(line_minSkill / minSkill);
+  var banner_skill_cycle = [];
+
+  for (let i = 0; i < banner_skill_cycle_length; i++) {
+    banner_skill_cycle.push(i);
+  }
+
   // 获取分类项目
-  const category = config.category ? config.category : [
+  const category = config.category && config.category > 0 ? config.category : [
     { name: '必看精选', path: '/categories/精选/', icon: 'fa-solid fa-star', color: ['#358bff', '#15c6ff'] },
     { name: '热门文章', path: '/categories/热门/', icon: 'fa-solid fa-fire', color: ['#f65', '#ffbf37'] },
     { name: '优质资源', path: '/categories/资源/', icon: 'fa-solid fa-gem', color: ['#18e7ae', '#1eebeb'] }
@@ -79,18 +91,18 @@ hexo.extend.filter.register('after_generate', function () {
   // 集体声明配置项
   const data = {
     banner_title: config.banner.title && config.banner.title.length > 0 ? config.banner.title : ['无限热爱', '技术与生活', 'WEIZWZ.COM'],
-    banner_skill: config.banner.skill && config.banner.skill.length > 0 ? config.banner.skill : defaultSkill,
+    banner_skill: {
+      skill,
+      cycle: banner_skill_cycle,
+      maxSkill: maxSkill
+    },
     enable_page: config.enable_page ? config.enable_page : '/',
     exclude: config.exclude,
     timemode: config.timemode ? config.timemode : 'date',
     layout_type: config.layout.type,
     layout_name: config.layout.name,
     layout_index: config.layout.index ? config.layout.index : 0,
-    insertposition: config.insertposition ? config.insertposition : 'afterbegin',
     recommend_list: recommend_list,
-    default_descr: config.default_descr ? config.default_descr : '再怎么看我也不知道怎么描述它的啦！',
-    swiper_js: config.swiper_js ? urlFor(config.swiper_js) : 'https://cdn.cbd.int/hexo-butterfly-swiper-anzhiyu/lib/swiper.min.js',
-    custom_js: config.custom_js ? urlFor(config.custom_js) : 'https://cdn.cbd.int/hexo-butterfly-swiper-anzhiyu/lib/swiper_init.js',
     gsap_js: config.gsap_js ? urlFor(config.gsap_js) : 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.0/gsap.min.js',
     category: category
   }
@@ -129,7 +141,7 @@ hexo.extend.filter.register('after_generate', function () {
       var parent_div_git = ${get_layout};
       var item_html = '${temple_html_text}';
       console.log('已挂载${pluginname}');
-      parent_div_git.insertAdjacentHTML("${data.insertposition}",item_html);
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html);
     }
     var elist = '${data.exclude}'.split(',');
     var cpage = location.pathname;

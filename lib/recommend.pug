@@ -1,5 +1,3 @@
-//- blog config
-//- theme config
 #recommend
   #recommend-banner.recommend-wrapper
     #recommend-banner-wrapper
@@ -8,17 +6,25 @@
           .recommend-banner-title=item
       .recommend-tags-all
         .recommend-tags-wrapper
-          //- 循环两遍，避免断层
-          each val in [1, 2]
-            - const evenNum = banner_skill.filter((x, index) => index % 2 === 0);
-            - const oddNum = banner_skill.filter((x, index) => index % 2 === 1);
-            each item, index in banner_skill
-              if ((index + 1 <= evenNum.length) && (index + 1 <= oddNum.length))
-                .recommend-tags-column
-                  .recommend-tags-icon(style=`background: ${evenNum[index].background}`)
-                    i(class=`${evenNum[index].icon}` style=`color: ${evenNum[index].color}`)
-                  .recommend-tags-icon(style=`background: ${oddNum[index].background}`)
-                    i(class=`${oddNum[index].icon}` style=`color: ${oddNum[index].color}`)
+          .recommend-tags-line
+            //- 循环多遍，避免断层
+            each val in banner_skill.cycle
+              each item, index in banner_skill.skill
+                - const skill = banner_skill.skill
+                  //- 循环够数后停止 maxSkill
+                  if (index % 2 === 0 && ((val * Math.ceil(banner_skill.skill.length/2) + index/2 + 1) <= banner_skill.maxSkill))
+                    .recommend-tags-column
+                      .recommend-tags-icon(style=`background: ${skill[index].background}`)
+                        i(class=`${skill[index].icon}` style=`color: ${skill[index].color}`)
+          .recommend-tags-line
+            //- 循环多遍，避免断层
+            each val in banner_skill.cycle
+              each item, index in banner_skill.skill
+                - const skill = banner_skill.skill
+                  if (index % 2 === 1)
+                    .recommend-tags-column
+                      .recommend-tags-icon(style=`background: ${skill[index].background}`)
+                        i(class=`${skill[index].icon}` style=`color: ${skill[index].color}`)
       a#recommend-banner-hover(onclick='toRandomPost()')
         span.bannerText 随便逛逛
         i.fas.fa-arrow-right.banner-righticon

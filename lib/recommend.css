@@ -1,6 +1,6 @@
 :root {
-  --recommend-main: #4259ef;
-  --recommend-deep: #4259efdd;
+  --recommend-main: #409eff;
+  --recommend-deep: rgba(0, 117, 255, .9);
   --recommend-margin: 1rem;
   --recommend-card-bg: #fff;
   --recommend-radius: 8px;
@@ -78,7 +78,11 @@
   transform: rotate(-30deg);
 }
 .recommend-tags-wrapper {
-  margin-top: 8rem;
+  margin-top: 7rem;
+}
+.recommend-tags-line {
+  margin-top: 1rem;
+  width: 100%;
   display: flex;
   flex-wrap: nowrap;
   animation: rowup 60s linear infinite;
