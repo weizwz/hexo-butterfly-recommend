@@ -1,5 +1,13 @@
 # hexo-butterfly-recommend
-`hexo-theme-butterfly` 主题的扩展，首页推荐组件
+`hexo-theme-butterfly` 主题的扩展，首页推荐组件。 
+
+参考效果 [张洪Heo](https://blog.zhheo.com/)
+参考文章 [为博客顶部添加滚动banner及文章推荐卡片](https://blog.bywind.xyz/posts/ab6e072d.html)
+参考插件 [hexo-butterfly-swiper-anzhiyu-pro](https://github.com/anzhiyu-c/hexo-butterfly-swiper-anzhiyu-pro/tree/main)
+
+**感谢以上大大们的无私奉献**
+
+参与调试或自定义修改 [butterfly-plug](https://github.com/weizwz/butterfly-plug)。
 
 ## 计划
 - [x] 技能树
