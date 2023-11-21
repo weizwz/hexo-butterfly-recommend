@@ -65,7 +65,7 @@ hexo.extend.filter.register('after_generate', function () {
   // 获取所有文章 过滤推荐文章
   const posts_list = hexo.locals.get('posts').data;
   var recommend_list = [];
-  var recommend_cover = posts_list[0];
+  var recommend_cover = posts_list[posts_list.length - 1];
   if (config.post) {
     const recommend_paths = config.post.paths;
     const recommend_cover_item = config.post.cover;
@@ -110,7 +110,6 @@ hexo.extend.filter.register('after_generate', function () {
     },
     enable_page: config.enable_page ? config.enable_page : '/',
     exclude: config.exclude,
-    timemode: config.timemode ? config.timemode : 'date',
     layout_type: config.layout.type,
     layout_name: config.layout.name,
     layout_index: config.layout.index ? config.layout.index : 0,

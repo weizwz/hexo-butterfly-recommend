@@ -28,7 +28,8 @@ npm i hexo-butterfly-recommend --save
 recommend:
   enable: true #开关
   priority: 5 #过滤器优先权
-  enable_page: / #应用页面 /是首页
+  enable_page: / #应用页面 /是首页，all所有界面，/categories分类页等
+  exclude: #屏蔽页面，可以多个，用,号分隔。仅当enable_page为'all'时生效。
   layout: # 挂载容器类型
     type: id
     name: content-inner
@@ -95,11 +96,16 @@ recommend:
         - '#18e7ae'
         - '#1eebeb'
   post: 
-    cover: 
-      path: '2023/11/20/butterfly-recommend使用说明/'
-      title: 顶部扩展 butterfly-recommend 正式发布了
-      subTitle: butterfly新扩展
-    paths: 
+    cover: #默认推荐页，不填的话默认取最新一篇文章
+      path: '2023/11/20/butterfly-recommend使用说明/' #推荐界面访问路径
+      img: '/img/cover_default.png' #可为空，默认取cover，没有的话在取 top_img
+      title: 'butterfly-recommend 正式发布了' #推荐标题，不填的话取文章标题
+      subTitle: '首屏新组件' #推荐次标题，不填的话取文章时间
+    paths: #次级推荐页 填博文访问路径
       - '2023/11/20/butterfly-recommend使用说明/'
       - '2023/11/19/test-post/'
+      - '2023/11/21/Hexo-是什么/'
+      - '2023/11/19/hello-world/'
+      - '2023/11/21/如何开发hexo扩展插件/'
+      - '2023/11/21/Copilot-with-Bing-Chat/'
 ```
