@@ -168,7 +168,6 @@ hexo.extend.filter.register('after_generate', function () {
             ${pluginname}_flag++;
           }
         }
-        console.log(${pluginname}_flag, ${pluginname}_cpage);
         if ((${pluginname}_epage === 'all') && (${pluginname}_flag === 0)) {
           recommend.${pluginname}_injector_config();
         } else if (${pluginname}_epage === ${pluginname}_cpage) {
@@ -198,6 +197,14 @@ hexo.extend.filter.register('after_generate', function () {
         const $main = document.querySelector("#recommend-post-main");
         $main.className = 'recommend-post-main';
       },
+      postScroll: function(dom) {
+        const e = window.event || arguments.callee.caller.arguments[0];
+        if (document.body.clientWidth <= 1200) {
+          let o = -e.wheelDelta / 2;
+          dom.scrollLeft += o;
+          e.preventDefault();
+        }
+      }
     }
     recommend.${pluginname}_init();
   </script>`

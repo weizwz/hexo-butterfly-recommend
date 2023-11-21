@@ -347,6 +347,7 @@
 .recommend-post-list {
   display: flex;
   flex-wrap: wrap;
+  transition: .3s;
 }
 .recommend-post-item {
   width: calc(33.33% - 0.67rem);
@@ -403,14 +404,14 @@
 /*  ======================媒体查询=========================== */
 @media screen and (max-width: 1200px) {
   #recommend {
-    overflow-x: auto;
-    -webkit-user-select: none;
+    overflow: hidden;
+    user-select: none;
   }
   #recommend-content {
     flex-wrap: nowrap;
     overflow-x: scroll;
     justify-content: flex-start;
-    -webkit-user-select: none;
+    user-select: none;
   }
   #recommend-content::-webkit-scrollbar {
     display: none;
