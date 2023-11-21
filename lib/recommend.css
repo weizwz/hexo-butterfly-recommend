@@ -4,6 +4,7 @@
   --recommend-white: #fff;
   --recommend-red: #f04a63;
   --recommend-blank: #000;
+  --recommend-gray: #e3e8f7;
   --recommend-white-op: rgba(255, 255, 255, .15);
   --recommend-margin: 1rem;
   --recommend-radius: 8px;
@@ -27,12 +28,20 @@
 #recent-posts {
   width: 74%;
 }
+@media screen and (max-width: 900px){
+  #recommend + div {
+    width: 100% !important;
+  }
+}
 
 #recommend {
   width: 100%;
   margin-bottom: 20px;
   padding: 0;
+  background: none;
   box-shadow: none;
+}
+#recommend-content {
   display: flex;
   justify-content: space-between;
   flex-direction: row;
@@ -162,7 +171,6 @@
   font-size: 80px;
   opacity: .6;
 }
-
 
 /* 分类 */
 #recommend-category {
@@ -391,6 +399,88 @@
 }
 .recommend-post-item:hover .recommend-post-item-title {
   color: var(--recommend-main);
+}
+/*  ======================媒体查询=========================== */
+@media screen and (max-width: 1200px) {
+  #recommend {
+    overflow-x: auto;
+    -webkit-user-select: none;
+  }
+  #recommend-content {
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    justify-content: flex-start;
+    -webkit-user-select: none;
+  }
+  #recommend-content::-webkit-scrollbar {
+    display: none;
+  }
+  #recommend-banner {
+    height: calc(160px + 1rem);
+    width: inherit;
+  }
+  #recommend-banner-wrapper {
+    display: none;
+  }
+  #recommend-category {
+    height: 100%;
+    flex-direction: column;
+  }
+  .recommend-categoryItem {
+    min-width: 200px;
+    max-width: 200px;
+    height: calc(50% - .5rem);
+    margin-right: 0;
+    margin-bottom: 1rem;
+    box-shadow: none;
+  }
+  .recommend-categoryItem:nth-child(2) {
+    margin-bottom: 0;
+  }
+  .recommend-categoryItem:nth-child(n+3) {
+    display: none;
+  }
+  .recommend-categoryItem:hover {
+    width: 100%;
+  }
+  #recommend-post {
+    height: calc(160px + 1rem);
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+  #recommend-post > #recommend-post-main {
+    width: 400px;
+    flex: 0 0 auto;
+    position: relative;
+    margin-right: 1rem;
+  }
+  .recommend-post-cover-title {
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+  }
+  .recommend-post-cover-more {
+    display: none;
+  }
+  .recommend-post-list {
+    flex-wrap: nowrap;
+  }
+  .recommend-post-item {
+    min-width: 200px;
+    height: 100%;
+    margin-bottom: 0;
+    box-shadow: none;
+    border: solid 1px var(--recommend-gray);
+  }
+  .recommend-post-item:nth-child(3n) {
+    margin-right: 1rem;
+  }
+  .recommend-post-item:last-child {
+    margin-right: 0;
+  }
 }
 /*  ======================动画=========================== */
 @keyframes rowup {

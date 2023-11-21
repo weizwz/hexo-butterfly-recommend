@@ -1,52 +1,53 @@
 #recommend
-  #recommend-banner.recommend-wrapper
-    #recommend-banner-wrapper
-      .recommend-banner-title-wrapper
-        each item in banner_title
-          .recommend-banner-title=item
-      .recommend-tags-all
-        .recommend-tags-wrapper
-          .recommend-tags-line
-            //- 循环多遍，避免断层
-            each val in banner_skill.cycle
-              each item, index in banner_skill.skill
-                - const skill = banner_skill.skill
-                  //- 循环够数后停止 maxSkill
-                  if (index % 2 === 0 && ((val * Math.ceil(banner_skill.skill.length/2) + index/2 + 1) <= banner_skill.maxSkill))
-                    .recommend-tags-column
-                      .recommend-tags-icon(style=`background: ${skill[index].background}`)
-                        i(class=`${skill[index].icon}` style=`color: ${skill[index].color}`)
-          .recommend-tags-line
-            //- 循环多遍，避免断层
-            each val in banner_skill.cycle
-              each item, index in banner_skill.skill
-                - const skill = banner_skill.skill
-                  if (index % 2 === 1)
-                    .recommend-tags-column
-                      .recommend-tags-icon(style=`background: ${skill[index].background}`)
-                        i(class=`${skill[index].icon}` style=`color: ${skill[index].color}`)
-      a#recommend-banner-hover(onclick='recommend.toRandomPost()')
-        span.recommend-banner-text 随便逛逛
-        i.fas.fa-arrow-right.recommend-banner-righticon
-    #recommend-category
-      each item, index in category
-        .recommend-categoryItem
-            a.recommend-categoryItem-button(onclick=`recommend.toPost("${item.path}")` style=`background: linear-gradient(to right, ${item.color[0]}, ${item.color[1]})`)
-              span.recommend-categoryItem-text=`${item.name}`
-              i(class=`${item.icon}`)
-  #recommend-post.recommend-wrapper
-    #recommend-post-main.recommend-post-main
-      .recommend-post-cover(onclick=`recommend.toPost("${recommend_cover.path}")` style=`background:url(${recommend_cover.recommend_home_cover}) no-repeat center/cover`)
-      .recommend-post-cover-wrapper
-        .recommend-post-cover-info(onclick=`recommend.toPost("${recommend_cover.path}")`)
-          .recommend-post-cover-subTitle=`${recommend_cover.recommend_subTitle}`
-          .recommend-post-cover-title=`${recommend_cover.recommend_title}`
-        .recommend-post-cover-more(onclick='window.event.cancelBubble=true;recommend.hideCover();')
-          i.fa-solid.fa-circle-plus
-          span 更多推荐
-    .recommend-post-list(onmouseleave='window.event.cancelBubble=true;recommend.showCover();')
-      each item in recommend_list
-        .recommend-post-item
-          .recommend-post-item-cover(onclick=`recommend.toPost("${item.path}")`)
-            img(src=`${item.recommend_cover}` onerror=`this.onerror=null,this.src="/img/404.png"` title=`${item.title}`)
-          .recommend-post-item-title(onclick=`recommend.toPost("${item.path}")` title=`${item.title}`)=`${item.title}`
+  #recommend-content
+    #recommend-banner.recommend-wrapper
+      #recommend-banner-wrapper
+        .recommend-banner-title-wrapper
+          each item in banner_title
+            .recommend-banner-title=item
+        .recommend-tags-all
+          .recommend-tags-wrapper
+            .recommend-tags-line
+              //- 循环多遍，避免断层
+              each val in banner_skill.cycle
+                each item, index in banner_skill.skill
+                  - const skill = banner_skill.skill
+                    //- 循环够数后停止 maxSkill
+                    if (index % 2 === 0 && ((val * Math.ceil(banner_skill.skill.length/2) + index/2 + 1) <= banner_skill.maxSkill))
+                      .recommend-tags-column
+                        .recommend-tags-icon(style=`background: ${skill[index].background}`)
+                          i(class=`${skill[index].icon}` style=`color: ${skill[index].color}`)
+            .recommend-tags-line
+              //- 循环多遍，避免断层
+              each val in banner_skill.cycle
+                each item, index in banner_skill.skill
+                  - const skill = banner_skill.skill
+                    if (index % 2 === 1)
+                      .recommend-tags-column
+                        .recommend-tags-icon(style=`background: ${skill[index].background}`)
+                          i(class=`${skill[index].icon}` style=`color: ${skill[index].color}`)
+        a#recommend-banner-hover(onclick='recommend.toRandomPost()')
+          span.recommend-banner-text 随便逛逛
+          i.fas.fa-arrow-right.recommend-banner-righticon
+      #recommend-category
+        each item, index in category
+          .recommend-categoryItem
+              a.recommend-categoryItem-button(onclick=`recommend.toPost("${item.path}")` style=`background: linear-gradient(to right, ${item.color[0]}, ${item.color[1]})`)
+                span.recommend-categoryItem-text=`${item.name}`
+                i(class=`${item.icon}`)
+    #recommend-post.recommend-wrapper
+      #recommend-post-main.recommend-post-main
+        .recommend-post-cover(onclick=`recommend.toPost("${recommend_cover.path}")` style=`background:url(${recommend_cover.recommend_home_cover}) no-repeat center/cover`)
+        .recommend-post-cover-wrapper
+          .recommend-post-cover-info(onclick=`recommend.toPost("${recommend_cover.path}")`)
+            .recommend-post-cover-subTitle=`${recommend_cover.recommend_subTitle}`
+            .recommend-post-cover-title=`${recommend_cover.recommend_title}`
+          .recommend-post-cover-more(onclick='window.event.cancelBubble=true;recommend.hideCover();')
+            i.fa-solid.fa-circle-plus
+            span 更多推荐
+      .recommend-post-list(onmouseleave='window.event.cancelBubble=true;recommend.showCover();')
+        each item in recommend_list
+          .recommend-post-item
+            .recommend-post-item-cover(onclick=`recommend.toPost("${item.path}")`)
+              img(src=`${item.recommend_cover}` onerror=`this.onerror=null,this.src="/img/404.png"` title=`${item.title}`)
+            .recommend-post-item-title(onclick=`recommend.toPost("${item.path}")` title=`${item.title}`)=`${item.title}`

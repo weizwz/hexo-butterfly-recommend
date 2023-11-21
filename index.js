@@ -69,6 +69,7 @@ hexo.extend.filter.register('after_generate', function () {
   if (config.post) {
     const recommend_paths = config.post.paths;
     const recommend_cover_item = config.post.cover;
+
     // 遍历查找 recommend_list
     if (recommend_paths) {
       for (const temp of recommend_paths) {
@@ -88,11 +89,11 @@ hexo.extend.filter.register('after_generate', function () {
         recommend_list[recommend_list.length - 1].recommend_cover = item.cover ? item.cover : (item.top_img ? item.top_img : '');
       }
     }
+
     // 遍历查找 cover
     recommend_cover.recommend_title = recommend_cover.title;
     recommend_cover.recommend_subTitle = recommend_cover.date;
     recommend_cover.recommend_home_cover = recommend_cover.cover ? recommend_cover.cover : (recommend_cover.top_img ? recommend_cover.top_img : '');
-
     if (recommend_cover_item) {
       for (const item of posts_list) {
         if (recommend_cover_item.path === item.path || (recommend_cover_item.path + '/' === item.path)) {
@@ -196,7 +197,7 @@ hexo.extend.filter.register('after_generate', function () {
       showCover: function() {
         const $main = document.querySelector("#recommend-post-main");
         $main.className = 'recommend-post-main';
-      }
+      },
     }
     recommend.${pluginname}_init();
   </script>`
