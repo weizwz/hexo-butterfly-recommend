@@ -238,6 +238,7 @@
 .recommend-post-main {
   position: absolute;
   z-index: 2;
+  border-radius: var(--recommend-radius);
   overflow: hidden;
   transition: .3s;
 }
@@ -250,11 +251,10 @@
   transform: scale(1.2);
 }
 .recommend-post-main.recommend-hide .recommend-post-cover-info {
-  bottom: 1rem;
-  opacity: 0;
+  top: 0;
 }
 .recommend-post-main.recommend-hide .recommend-post-cover-more {
-  bottom: 1rem;
+  bottom: 0;
 }
 .recommend-post-cover {
   height: 100%;

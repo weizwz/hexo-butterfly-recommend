@@ -144,30 +144,32 @@ hexo.extend.filter.register('after_generate', function () {
   //挂载容器脚本
   var user_info_js = `
   <script data-pjax>
-    function ${pluginname}_injector_config() {
-      var parent_div_git = ${get_layout};
-      var item_html = '${temple_html_text}';
-      console.log('已挂载${pluginname}');
-      parent_div_git.insertAdjacentHTML("afterbegin",item_html);
-    }
-    const ${pluginname}_elist = '${data.exclude}'.split(',');
-    var ${pluginname}_cpage = location.pathname;
-    const ${pluginname}_epage = '${data.enable_page}';
-    var ${pluginname}_flag = 0;
-
-    for (var i = 0; i < ${pluginname}_elist.length; i++) {
-      if (${pluginname}_cpage.includes(${pluginname}_elist[i])) {
-        ${pluginname}_flag++;
-      }
-    }
-
-    if ((${pluginname}_epage ==='all') && (${pluginname}_flag === 0)) {
-      ${pluginname}_injector_config();
-    }
-    else if (${pluginname}_epage === ${pluginname}_cpage) {
-      ${pluginname}_injector_config();
-    }
     const recommend = {
+      ${pluginname}_init: function() {
+        const ${pluginname}_elist = '${data.exclude}'.split(',');
+        var ${pluginname}_cpage = location.pathname;
+        const ${pluginname}_epage = '${data.enable_page}';
+        var ${pluginname}_flag = 0;
+  
+        for (var i = 0; i < ${pluginname}_elist.length; i++) {
+          if (${pluginname}_cpage.includes(${pluginname}_elist[i])) {
+            ${pluginname}_flag++;
+          }
+        }
+  
+        if ((${pluginname}_epage ==='all') && (${pluginname}_flag === 0)) {
+          recommend.${pluginname}_injector_config();
+        }
+        else if (${pluginname}_epage === ${pluginname}_cpage) {
+          recommend.${pluginname}_injector_config();
+        }
+      },
+      ${pluginname}_injector_config: function() {
+        var parent_div_git = ${get_layout};
+        var item_html = '${temple_html_text}';
+        console.log('已挂载${pluginname}');
+        parent_div_git.insertAdjacentHTML("afterbegin",item_html);
+      },
       toRandomPost: function() {
         var posts_path = "${posts_path}".split(',');
         var randomPost = posts_path[Math.floor(Math.random() * posts_path.length)];
@@ -186,6 +188,7 @@ hexo.extend.filter.register('after_generate', function () {
         $main.className = 'recommend-post-main';
       }
     }
+    recommend.${pluginname}_init();
   </script>`
 
   // 此处利用挂载容器实现了二级注入
