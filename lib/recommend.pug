@@ -41,7 +41,7 @@
         .recommend-post-cover-info(onclick=`recommend.toPost("${recommend_cover.path}")`)
           .recommend-post-cover-subTitle=`${recommend_cover.subTitle}`
           .recommend-post-cover-title=`${recommend_cover.title}`
-        .recommend-post-cover-more(onmouseenter='window.event.cancelBubble=true;recommend.hideCover();')
+        .recommend-post-cover-more(onclick='window.event.cancelBubble=true;recommend.hideCover();')
           i.fa-solid.fa-circle-plus
           span 更多推荐
     .recommend-post-list(onmouseleave='window.event.cancelBubble=true;recommend.showCover();')
