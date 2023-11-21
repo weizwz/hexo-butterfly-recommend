@@ -1,8 +1,10 @@
 :root {
   --recommend-main: #409eff;
   --recommend-deep: rgba(0, 117, 255, .8);
+  --recommend-white: #fff;
+  --recommend-blank: #000;
+  --recommend-white-op: rgba(255, 255, 255, .15);
   --recommend-margin: 1rem;
-  --recommend-card-bg: #fff;
   --recommend-radius: 8px;
   --recommend-shadow: 0 3px 8px 6px rgba(7,17,27,0.05);
   --recommend-skill-shadow: 0 2px 16px -3px rgba(0, 0, 0, .15);
@@ -37,6 +39,7 @@
   overflow: hidden;
   box-shadow: var(--recommend-shadow);
   margin-right: 0;
+  flex-wrap: wrap;
 }
 #recommend-banner-wrapper {
   display: flex;
@@ -105,7 +108,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: var(--recommend-white);
   box-shadow: var(--recommend-skill-shadow);
 }
 .recommend-tags-icon > i {
@@ -118,7 +121,7 @@
   top: 0;
   left: 0;
   background: var(--recommend-main);
-  color: var(--recommend-card-bg);
+  color: var(--recommend-white);
   padding-left: .5rem;
   padding-top: 2rem;
   display: flex;
@@ -139,7 +142,7 @@
   background-size: 200%;
   cursor: pointer;
 }
-.bannerText {
+.recommend-banner-text {
   font-size: 5rem;
   line-height: 6rem;
   font-weight: 700;
@@ -195,13 +198,13 @@
   width: 1.2rem;
   left: 21px;
   height: 2px;
-  background: #fff;
+  background: var(--recommend-white);
   content: "";
   border-radius: 1px;
   position: absolute;
 }
 .recommend-categoryItem-text {
-  color: #fff;
+  color: var(--recommend-white);
   padding-left: 20px;
   font-size: 1.2rem;
 }
@@ -212,7 +215,7 @@
   right: 2%;
   top: 30%;
   transition: .3s;
-  color: #fff;
+  color: var(--recommend-white);
   width: 100px;
   text-align: center;
   filter: blur(2px);
@@ -226,6 +229,70 @@
   font-size: 2.5rem;
   filter: blur(0);
 }
+
+/* 推荐文章 */
+#recommend-post > div {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+.recommend-post-cover {
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
+.recommend-post-cover-wrapper {
+}
+.recommend-post-cover-info {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  right: 2rem;
+  color: var(--recommend-white);
+  cursor: pointer;
+  transition: .3s;
+}
+.recommend-post-cover-subTitle {
+  font-size: 16px;
+  line-height: 20px;
+  opacity: .9;
+  text-shadow: 1px 1px 1px var(--recommend-blank);
+}
+.recommend-post-cover-title {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 42px;
+  text-shadow: 3px 3px 5px var(--recommend-blank);
+}
+.recommend-post-cover-more {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 0 0 auto;
+  height: 40px;
+  line-height: 40px;
+  padding: 10px 15px;
+  white-space: nowrap;
+  background: var(--recommend-white-op);
+  font-size: 16px;
+  color: var(--recommend-white);
+  border-radius: 40px;
+  transition: .3s;
+  cursor: pointer;
+  backdrop-filter: saturate(180%) blur(20px);
+  transform: translateZ(0);
+}
+.recommend-post-cover-more:hover {
+  background: var(--recommend-main);
+}
+.recommend-post-cover-more > i {
+  margin-right: 6px;
+  font-size: 20px;
+}
+
 /*  ======================动画=========================== */
 @keyframes rowup {
   from {
