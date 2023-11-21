@@ -75,10 +75,7 @@ hexo.extend.filter.register('after_generate', function () {
         if (temp === item.path) {
           recommend_list.push(item);
           // 如果文章没有cover 可拿top_img
-          item.recommend_cover = String(item.cover);
-          if (!item.cover && item.top_img) {
-            item.recommend_cover = item.top_img;
-          }
+          recommend_list[recommend_list.length - 1].recommend_cover = item.cover ? item.cover : (item.top_img ? item.top_img : '');
           break;
         }
       }
@@ -87,9 +84,12 @@ hexo.extend.filter.register('after_generate', function () {
     for (const item of posts_list) {
       if (item.path === recommend_cover_item.path) {
         recommend_cover = item;
+        // 如果文章没有cover 可拿top_img
+        recommend_cover.home_cover = recommend_cover_item.img ? recommend_cover_item.img : (item.cover ? item.cover : (item.top_img ? item.top_img : ''));
         break;
       }
     }
+
     recommend_cover.title = recommend_cover_item.title ? recommend_cover_item.title : recommend_cover.title;
     recommend_cover.subTitle = recommend_cover_item.subTitle ? recommend_cover_item.subTitle : recommend_cover.date;
   }
