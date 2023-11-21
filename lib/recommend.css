@@ -14,9 +14,20 @@
 #content-inner {
   flex-wrap: wrap;
 }
+#recommend + div:not(.recent-posts) {
+  width: 74%;
+  flex: 1;
+  padding: 50px 40px;
+  align-self: flex-start;
+  border-radius: var(--recommend-radius);
+  background: var(--recommend-white);
+  box-shadow: var(--recommend-shadow);
+  transition: all 0.3s;
+}
 #recent-posts {
   width: 74%;
 }
+
 #recommend {
   width: 100%;
   margin-bottom: 20px;
@@ -53,18 +64,23 @@
   animation: slide-in .6s .1s backwards;
 }
 .recommend-banner-title-wrapper {
+  position: absolute;
+  width: calc(100% - 4rem);
   top: 2rem;
   left: 2rem;
-  position: absolute;
   display: flex;
   flex-direction: column;
 }
 .recommend-banner-title {
+  width: 100%;
   font-size: 36px;
   color: var(--text-highlight-color);
   line-height: 1;
   font-weight: 700;
   margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .recommend-banner-title:last-child {
   margin-top: 8px;
@@ -199,8 +215,13 @@
   position: absolute;
 }
 .recommend-categoryItem-text {
-  color: var(--recommend-white);
+  width: calc(100% - 20px);
   padding-left: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  color: var(--recommend-white);
   font-size: 1.2rem;
 }
 .recommend-categoryItem-button > i {

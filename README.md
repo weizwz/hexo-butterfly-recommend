@@ -78,34 +78,34 @@ recommend:
         background: '#df5b40'
   category:
     - name: '必看精选'
-      path: '/categories/精选/'
+      path: 'categories/精选'
       icon: 'fa-solid fa-star' #fontawesome图标
       color: #渐变色
         - '#358bff'
         - '#15c6ff'
     - name: '热门文章'
-      path: '/categories/热门/'
+      path: 'categories/热门'
       icon: 'fa-solid fa-fire'
       color: 
         - '#f65'
         - '#ffbf37'
     - name: '优质资源'
-      path: '/categories/资源/'
+      path: 'categories/资源'
       icon: 'fa-solid fa-gem'
       color: 
         - '#18e7ae'
         - '#1eebeb'
   post: 
     cover: #默认推荐页，不填的话默认取最新一篇文章
-      path: '2023/11/20/butterfly-recommend使用说明/' #推荐界面访问路径
-      img: '/img/cover_default.png' #可为空，默认取cover，没有的话在取 top_img
+      path: '2023/11/20/butterfly-recommend使用说明' #推荐界面访问路径
+      img: '/img/cover_default.png' #可为空，默认取cover，没有的话在取 top_img。最前面的/不可省略
       title: 'butterfly-recommend 正式发布了' #推荐标题，不填的话取文章标题
       subTitle: '首屏新组件' #推荐次标题，不填的话取文章时间
     paths: #次级推荐页 填博文访问路径
-      - '2023/11/20/butterfly-recommend使用说明/'
-      - '2023/11/19/test-post/'
-      - '2023/11/21/Hexo-是什么/'
-      - '2023/11/19/hello-world/'
-      - '2023/11/21/如何开发hexo扩展插件/'
-      - '2023/11/21/Copilot-with-Bing-Chat/'
+      - '2023/11/20/butterfly-recommend使用说明'
+      - '2023/11/19/test-post'
+      - '2023/11/21/Hexo-是什么'
+      - '2023/11/19/hello-world'
+      - '2023/11/21/如何开发hexo扩展插件'
+      - '2023/11/21/Copilot-with-Bing-Chat'
 ```

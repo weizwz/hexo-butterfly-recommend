@@ -70,28 +70,40 @@ hexo.extend.filter.register('after_generate', function () {
     const recommend_paths = config.post.paths;
     const recommend_cover_item = config.post.cover;
     // 遍历查找 recommend_list
-    for (const temp of recommend_paths) {
+    if (recommend_paths) {
+      for (const temp of recommend_paths) {
+        for (const item of posts_list) {
+          if (temp === item.path || (temp + '/' === item.path)) {
+            recommend_list.push(item);
+            // 如果文章没有cover 可拿top_img
+            recommend_list[recommend_list.length - 1].recommend_cover = item.cover ? item.cover : (item.top_img ? item.top_img : '');
+            break;
+          }
+        }
+      }
+    } else {
+      for (var idx = posts_list.length - 1; idx >= 0 && (posts_list.length - 1 - idx <= 6); idx--) {
+        const item = posts_list[idx];
+        recommend_list.push(item);
+        recommend_list[recommend_list.length - 1].recommend_cover = item.cover ? item.cover : (item.top_img ? item.top_img : '');
+      }
+    }
+    // 遍历查找 cover
+    recommend_cover.recommend_title = recommend_cover.title;
+    recommend_cover.recommend_subTitle = recommend_cover.date;
+    recommend_cover.recommend_home_cover = recommend_cover.cover ? recommend_cover.cover : (recommend_cover.top_img ? recommend_cover.top_img : '');
+
+    if (recommend_cover_item) {
       for (const item of posts_list) {
-        if (temp === item.path) {
-          recommend_list.push(item);
-          // 如果文章没有cover 可拿top_img
-          recommend_list[recommend_list.length - 1].recommend_cover = item.cover ? item.cover : (item.top_img ? item.top_img : '');
+        if (recommend_cover_item.path === item.path || (recommend_cover_item.path + '/' === item.path)) {
+          recommend_cover = item;
+          recommend_cover.recommend_title = recommend_cover_item.title || recommend_cover.recommend_title;
+          recommend_cover.recommend_subTitle = recommend_cover_item.subTitle || recommend_cover.recommend_subTitle;
+          recommend_cover.recommend_home_cover = recommend_cover_item.img || recommend_cover.recommend_home_cover;
           break;
         }
       }
     }
-    // 遍历查找 cover
-    for (const item of posts_list) {
-      if (item.path === recommend_cover_item.path) {
-        recommend_cover = item;
-        // 如果文章没有cover 可拿top_img
-        recommend_cover.home_cover = recommend_cover_item.img ? recommend_cover_item.img : (item.cover ? item.cover : (item.top_img ? item.top_img : ''));
-        break;
-      }
-    }
-
-    recommend_cover.title = recommend_cover_item.title ? recommend_cover_item.title : recommend_cover.title;
-    recommend_cover.subTitle = recommend_cover_item.subTitle ? recommend_cover_item.subTitle : recommend_cover.date;
   }
 
   // 获取所有文章路径，用于随机跳转
@@ -155,11 +167,10 @@ hexo.extend.filter.register('after_generate', function () {
             ${pluginname}_flag++;
           }
         }
-  
-        if ((${pluginname}_epage ==='all') && (${pluginname}_flag === 0)) {
+        console.log(${pluginname}_flag, ${pluginname}_cpage);
+        if ((${pluginname}_epage === 'all') && (${pluginname}_flag === 0)) {
           recommend.${pluginname}_injector_config();
-        }
-        else if (${pluginname}_epage === ${pluginname}_cpage) {
+        } else if (${pluginname}_epage === ${pluginname}_cpage) {
           recommend.${pluginname}_injector_config();
         }
       },
@@ -176,7 +187,7 @@ hexo.extend.filter.register('after_generate', function () {
       },
       toPost: function(href) {
         if (typeof pjax !== 'undefined') pjax.loadUrl('/' + href);
-        else window.location.href = href;
+        else window.location.href = window.location.origin + (href.charAt(0) === '/' ? '' : '/') + href;
       },
       hideCover: function() {
         const $main = document.querySelector("#recommend-post-main");
@@ -191,13 +202,13 @@ hexo.extend.filter.register('after_generate', function () {
   </script>`
 
   // 此处利用挂载容器实现了二级注入
-  hexo.extend.injector.register('body_end', user_info_js, 'home');
+  hexo.extend.injector.register('body_end', user_info_js, 'default');
 
   // 注入静态资源
   const css = hexo.extend.helper.get('css').bind(hexo)
   // const js = hexo.extend.helper.get('js').bind(hexo)
   hexo.extend.injector.register('head_end', () => {
     return css(`/css/recommend.css?v=${version}`)
-  },'home')
+  }, 'default')
 })
 
