@@ -32,10 +32,10 @@ recommend:
   priority: 5 #过滤器优先权
   enable_page: / #应用页面 /是首页，all所有界面，/categories分类页等
   exclude: #屏蔽页面，可以多个，用,号分隔。仅当enable_page为'all'时生效。
-  layout: # 挂载容器类型
+  layout: #挂载容器类型
     type: id
-    name: content-inner
-    index: 1
+    name: content-inner #容器名称
+    index: 1 #如果是class，取第几个
   banner: #banner
     title: 
       - '无限热爱'
