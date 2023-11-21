@@ -74,6 +74,11 @@ hexo.extend.filter.register('after_generate', function () {
       for (const item of posts_list) {
         if (temp === item.path) {
           recommend_list.push(item);
+          // 如果文章没有cover 可拿top_img
+          item.recommend_cover = String(item.cover);
+          if (!item.cover && item.top_img) {
+            item.recommend_cover = item.top_img;
+          }
           break;
         }
       }
@@ -87,7 +92,6 @@ hexo.extend.filter.register('after_generate', function () {
     }
     recommend_cover.title = recommend_cover_item.title ? recommend_cover_item.title : recommend_cover.title;
     recommend_cover.subTitle = recommend_cover_item.subTitle ? recommend_cover_item.subTitle : recommend_cover.date;
-    console.log(recommend_cover.cover, recommend_cover.subTitle);
   }
 
   // 获取所有文章路径，用于随机跳转
@@ -146,31 +150,41 @@ hexo.extend.filter.register('after_generate', function () {
       console.log('已挂载${pluginname}');
       parent_div_git.insertAdjacentHTML("afterbegin",item_html);
     }
-    var elist = '${data.exclude}'.split(',');
-    var cpage = location.pathname;
-    var epage = '${data.enable_page}';
-    var flag = 0;
+    const ${pluginname}_elist = '${data.exclude}'.split(',');
+    var ${pluginname}_cpage = location.pathname;
+    const ${pluginname}_epage = '${data.enable_page}';
+    var ${pluginname}_flag = 0;
 
-    for (var i=0;i<elist.length;i++) {
-      if (cpage.includes(elist[i])) {
-        flag++;
+    for (var i = 0; i < ${pluginname}_elist.length; i++) {
+      if (${pluginname}_cpage.includes(${pluginname}_elist[i])) {
+        ${pluginname}_flag++;
       }
     }
 
-    if ((epage ==='all')&&(flag == 0)) {
+    if ((${pluginname}_epage ==='all') && (${pluginname}_flag === 0)) {
       ${pluginname}_injector_config();
     }
-    else if (epage === cpage) {
+    else if (${pluginname}_epage === ${pluginname}_cpage) {
       ${pluginname}_injector_config();
     }
-    function recommendToRandomPost() {
-      var posts_path = "${posts_path}".split(',');
-      var randomPost = posts_path[Math.floor(Math.random() * posts_path.length)];
-      recommendToPost(randomPost);
-    }
-    function recommendToPost(href) {
-      if (typeof pjax !== 'undefined') pjax.loadUrl('/' + href);
-      else window.location.href = href;
+    const recommend = {
+      toRandomPost: function() {
+        var posts_path = "${posts_path}".split(',');
+        var randomPost = posts_path[Math.floor(Math.random() * posts_path.length)];
+        recommend.toPost(randomPost);
+      },
+      toPost: function(href) {
+        if (typeof pjax !== 'undefined') pjax.loadUrl('/' + href);
+        else window.location.href = href;
+      },
+      hideCover: function() {
+        const $main = document.querySelector("#recommend-post-main");
+        $main.className = 'recommend-post-main recommend-hide';
+      },
+      showCover: function() {
+        const $main = document.querySelector("#recommend-post-main");
+        $main.className = 'recommend-post-main';
+      }
     }
   </script>`
 
