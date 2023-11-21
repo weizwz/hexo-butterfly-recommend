@@ -119,10 +119,10 @@
   left: 0;
   background: var(--recommend-main);
   color: var(--recommend-card-bg);
-  padding-left: 2rem;
+  padding-left: .5rem;
+  padding-top: 2rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   opacity: 0;
   transition: cubic-bezier(.71,.15,.16,1.15) .6s;
 }
@@ -146,7 +146,7 @@
 }
 #recommend-banner-wrapper #recommend-banner-hover i {
   font-size: 80px;
-  opacity: .4;
+  opacity: .6;
 }
 
 

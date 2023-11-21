@@ -78,4 +78,9 @@ recommend:
       color: 
         - '#18e7ae'
         - '#1eebeb'
+  post: 
+  cover: '2023/11/20/butterfly-recommend使用说明/'
+  paths: 
+    - '2023/11/20/butterfly-recommend使用说明/'
+    - '2023/11/19/test-post/'
 ```
