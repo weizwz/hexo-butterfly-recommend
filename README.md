@@ -1,6 +1,13 @@
 # hexo-butterfly-recommend
 `hexo-theme-butterfly` 主题的扩展，首页推荐组件
 
+## 计划
+- [x] 技能树
+- [x] 分类展示
+- [ ] 推荐封面
+- [ ] 二级推荐
+- [ ] 推荐弹幕
+
 ## 安装
 ```shell
 npm i hexo-butterfly-recommend --save
@@ -79,8 +86,11 @@ recommend:
         - '#18e7ae'
         - '#1eebeb'
   post: 
-  cover: '2023/11/20/butterfly-recommend使用说明/'
-  paths: 
-    - '2023/11/20/butterfly-recommend使用说明/'
-    - '2023/11/19/test-post/'
+    cover: 
+      path: '2023/11/20/butterfly-recommend使用说明/'
+      title: 顶部扩展 butterfly-recommend 正式发布了
+      subTitle: butterfly新扩展
+    paths: 
+      - '2023/11/20/butterfly-recommend使用说明/'
+      - '2023/11/19/test-post/'
 ```

@@ -188,6 +188,7 @@
   transition: all .8s cubic-bezier(.39,.575,.565,1);
   transform: scale(1);
   overflow: hidden;
+  cursor: pointer;
 }
 .recommend-categoryItem-button:after {
   top: 55%;

@@ -25,13 +25,13 @@
                     .recommend-tags-column
                       .recommend-tags-icon(style=`background: ${skill[index].background}`)
                         i(class=`${skill[index].icon}` style=`color: ${skill[index].color}`)
-      a#recommend-banner-hover(onclick='toRandomPost()')
+      a#recommend-banner-hover(onclick='recommendToRandomPost()')
         span.bannerText 随便逛逛
         i.fas.fa-arrow-right.banner-righticon
     #recommend-category
       each item, index in category
         .recommend-categoryItem
-            a.recommend-categoryItem-button(href=`${item.path}` style=`background: linear-gradient(to right, ${item.color[0]}, ${item.color[1]})`)
+            a.recommend-categoryItem-button(onclick=`recommendToPost("${item.path}")` style=`background: linear-gradient(to right, ${item.color[0]}, ${item.color[1]})`)
               span.recommend-categoryItem-text=`${item.name}`
               i(class=`${item.icon}`)
   #recommend-post.recommend-wrapper
