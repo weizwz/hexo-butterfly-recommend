@@ -1,7 +1,8 @@
 # hexo-butterfly-recommend
-(hexo-theme-butterfly)[https://github.com/jerryc127/hexo-theme-butterfly] 主题的扩展，首页推荐组件 
+[hexo-theme-butterfly](https://github.com/jerryc127/hexo-theme-butterfly) 主题的扩展，首页推荐组件 
 
-实际效果展示 [唯之为之的博客](https://weizwz.com)
+实际效果展示 [唯之为之的博客](https://weizwz.com) 
+
 演示博客示例 [butterfly-plug](https://github.com/weizwz/butterfly-plug) 
 
 + 参考界面 [张洪Heo](https://blog.zhheo.com/) 
