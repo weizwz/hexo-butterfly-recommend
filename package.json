@@ -18,11 +18,14 @@
     "url": "git+https://github.com/weizwz/hexo-butterfly-recommend.git"
   },
   "keywords": [
+    "blog",
     "hexo",
     "butterfly",
     "theme-butterfly",
+    "hexo-theme-butterfly",
     "recommend",
     "butterfly-recommend",
+    "hexo-butterfly-recommend",
     "plugin"
   ],
   "dependencies": {
