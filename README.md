@@ -13,13 +13,8 @@
 
 参与调试/自定义修改，请配合 [butterfly-plug](https://github.com/weizwz/butterfly-plug) 项目教程。
 
-## 计划
-- [x] 技能树
-- [x] 分类展示
-- [x] 推荐封面
-- [x] 二级推荐
-- [x] 样式兼容性
-- [ ] 推荐弹幕
+## 文档
+参考 [hexo-butterfly-recommend使用说明](https://weizwz.com/posts/7db60965.html)
 
 ## 安装
 ```shell
