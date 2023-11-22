@@ -1,7 +1,8 @@
 # hexo-butterfly-recommend
-`hexo-theme-butterfly` 主题的扩展，首页推荐组件 
+(hexo-theme-butterfly)[https://github.com/jerryc127/hexo-theme-butterfly] 主题的扩展，首页推荐组件 
 
-效果展示请前往 [butterfly-plug](https://github.com/weizwz/butterfly-plug)
+实际效果展示 [唯之为之的博客](https://weizwz.com)
+演示博客示例 [butterfly-plug](https://github.com/weizwz/butterfly-plug) 
 
 + 参考界面 [张洪Heo](https://blog.zhheo.com/) 
 + 参考教程 [为博客顶部添加滚动banner及文章推荐卡片](https://blog.bywind.xyz/posts/ab6e072d.html) 
@@ -99,7 +100,7 @@ recommend:
         - '#1eebeb'
   post: 
     cover: #默认推荐页，不填的话默认取最新一篇文章
-      path: '2023/11/20/butterfly-recommend使用说明' #推荐界面访问路径
+      path: '2023/11/20/butterfly-recommend使用说明' #推荐界面访问路径 也可设置分类页，需要其余配置都齐全
       img: '/img/cover_default.png' #可为空，默认取cover，没有的话在取 top_img。最前面的/不可省略
       title: 'butterfly-recommend 正式发布了' #推荐标题，不填的话取文章标题
       subTitle: '首屏新组件' #推荐次标题，不填的话取文章时间

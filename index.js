@@ -56,7 +56,7 @@ hexo.extend.filter.register('after_generate', function () {
   }
 
   // 获取分类项目
-  const category = config.category && config.category > 0 ? config.category : [
+  const category = config.category && config.category.length > 0 ? config.category : [
     { name: '必看精选', path: '/categories/精选/', icon: 'fa-solid fa-star', color: ['#358bff', '#15c6ff'] },
     { name: '热门文章', path: '/categories/热门/', icon: 'fa-solid fa-fire', color: ['#f65', '#ffbf37'] },
     { name: '优质资源', path: '/categories/资源/', icon: 'fa-solid fa-gem', color: ['#18e7ae', '#1eebeb'] }
@@ -65,7 +65,7 @@ hexo.extend.filter.register('after_generate', function () {
   // 获取所有文章 过滤推荐文章
   const posts_list = hexo.locals.get('posts').data;
   var recommend_list = [];
-  var recommend_cover = posts_list[posts_list.length - 1];
+  var recommend_cover = null;
   if (config.post) {
     const recommend_paths = config.post.paths;
     const recommend_cover_item = config.post.cover;
@@ -91,19 +91,31 @@ hexo.extend.filter.register('after_generate', function () {
     }
 
     // 遍历查找 cover
-    recommend_cover.recommend_title = recommend_cover.title;
-    recommend_cover.recommend_subTitle = recommend_cover.date;
-    recommend_cover.recommend_home_cover = recommend_cover.cover ? recommend_cover.cover : (recommend_cover.top_img ? recommend_cover.top_img : '');
     if (recommend_cover_item) {
-      for (const item of posts_list) {
-        if (recommend_cover_item.path === item.path || (recommend_cover_item.path + '/' === item.path)) {
-          recommend_cover = item;
-          recommend_cover.recommend_title = recommend_cover_item.title || recommend_cover.recommend_title;
-          recommend_cover.recommend_subTitle = recommend_cover_item.subTitle || recommend_cover.recommend_subTitle;
-          recommend_cover.recommend_home_cover = recommend_cover_item.img || recommend_cover.recommend_home_cover;
-          break;
+      // 配置项全的话，不用再遍历
+      if (recommend_cover_item.path && recommend_cover_item.img && recommend_cover_item.title && recommend_cover_item.subTitle) {
+        recommend_cover = recommend_cover_item;
+        recommend_cover.recommend_home_cover = recommend_cover_item.img;
+        recommend_cover.recommend_title = recommend_cover_item.title;
+        recommend_cover.recommend_subTitle = recommend_cover_item.subTitle;
+      } else {
+        for (const item of posts_list) {
+          if (recommend_cover_item.path === item.path || (recommend_cover_item.path + '/' === item.path)) {
+            recommend_cover = item;
+            recommend_cover.recommend_title = recommend_cover_item.title || item.title;
+            recommend_cover.recommend_subTitle = recommend_cover_item.subTitle || item.date;
+            recommend_cover.recommend_home_cover = recommend_cover_item.img || item.cover || item.top_img || '';
+            break;
+          }
         }
       }
+    }
+    // 未有相关配置/有相关配置但未找到 默认取最后/新一篇文章
+    if (!recommend_cover) {
+      recommend_cover = posts_list[posts_list.length - 1];
+      recommend_cover.recommend_title = recommend_cover.title;
+      recommend_cover.recommend_subTitle = recommend_cover.date;
+      recommend_cover.recommend_home_cover = recommend_cover.cover || recommend_cover.top_img || '';
     }
   }
 
@@ -156,7 +168,7 @@ hexo.extend.filter.register('after_generate', function () {
   //挂载容器脚本
   var user_info_js = `
   <script data-pjax>
-    const recommend = {
+    var recommend = {
       ${pluginname}_init: function() {
         const ${pluginname}_elist = '${data.exclude}'.split(',');
         var ${pluginname}_cpage = location.pathname;
