@@ -1,6 +1,6 @@
 'use strict';
 // 全局声明插件代号
-const pluginname = 'butterfly_recommend';
+const pluginname = 'hexo_butterfly_recommend';
 // 全局声明依赖
 const pug = require('pug');
 const path = require('path');
@@ -184,7 +184,7 @@ hexo.extend.filter.register(
           ${pluginname}_injector_config: function() {
             var parent_div_git = ${get_layout};
             var item_html = '${temple_html_text}';
-            console.log('已挂载${pluginname}');
+            console.log('已挂载 ${pluginname}, 使用文档请查看 https://github.com/weizwz/hexo-butterfly-recommend');
             parent_div_git.insertAdjacentHTML("afterbegin",item_html);
           },
           toRandomPost: function() {
