@@ -5,8 +5,6 @@ const pluginname = 'butterfly_recommend';
 const pug = require('pug');
 const path = require('path');
 const fs = require('hexo-fs');
-const util = require('hexo-util');
-const urlFor = util.url_for.bind(hexo);
 const { version } = require('./package.json');
 
 // 注册静态资源
@@ -231,11 +229,6 @@ hexo.extend.filter.register(
       return css(`/css/recommend.css?v=${version}`);
     }, 'default')
   },
-  hexo.extend.helper.register('priority', function(){
-    // 过滤器优先级，priority 值越低，过滤器会越早执行，默认priority是10
-    const pre_priority = hexo.config.recommend.priority ?  hexo.config.recommend.priority : hexo.theme.config.recommend.priority;
-    const priority = pre_priority ? pre_priority : 10;
-    return priority;
-  })
+  (hexo.config.recommend || hexo.config.theme_config.recommend)['priority'] || 5
 )
 
