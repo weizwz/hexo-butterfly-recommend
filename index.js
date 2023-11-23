@@ -229,6 +229,6 @@ hexo.extend.filter.register(
       return css(`/css/recommend.css?v=${version}`);
     }, 'default')
   },
-  (hexo.config.recommend || hexo.config.theme_config.recommend)['priority'] || 5
+  (hexo.config.recommend || hexo.config.theme_config.recommend)['priority'] || 10
 )
 
