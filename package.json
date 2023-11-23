@@ -1,6 +1,6 @@
 {
   "name": "hexo-butterfly-recommend",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "hexo-theme-butterfly主题的扩展，首页推荐",
   "main": "index.js",
   "scripts": {
