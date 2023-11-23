@@ -95,22 +95,19 @@ hexo.extend.filter.register(
         // 配置项全的话，不用再遍历
         if (recommend_cover_item.path && recommend_cover_item.img && recommend_cover_item.title && recommend_cover_item.subTitle) {
           recommend_cover = recommend_cover_item;
-          recommend_cover.recommend_home_cover = recommend_cover_item.img;
-          recommend_cover.recommend_title = recommend_cover_item.title;
-          recommend_cover.recommend_subTitle = recommend_cover_item.subTitle;
         } else {
           for (const item of posts_list) {
             if (recommend_cover_item.path === item.path || (recommend_cover_item.path + '/' === item.path)) {
               recommend_cover = item;
-              recommend_cover.recommend_title = recommend_cover_item.title || item.title;
-              recommend_cover.recommend_subTitle = recommend_cover_item.subTitle || item.date;
-              recommend_cover.recommend_home_cover = recommend_cover_item.img || item.cover || item.top_img || '';
               break;
             }
           }
         }
+        recommend_cover.recommend_title = recommend_cover_item.title || item.title;
+        recommend_cover.recommend_subTitle = recommend_cover_item.subTitle || item.date;
+        recommend_cover.recommend_home_cover = recommend_cover_item.img || item.cover || item.top_img || '';
       }
-      // 未有相关配置/有相关配置但未找到 默认取最后/新一篇文章
+      // 未有相关配置/有相关配置但未找到 默认取最新一篇文章
       if (!recommend_cover) {
         recommend_cover = posts_list[posts_list.length - 1];
         recommend_cover.recommend_title = recommend_cover.title;

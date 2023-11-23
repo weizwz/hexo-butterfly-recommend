@@ -11,7 +11,7 @@
 
 **感谢以上大大们的无私奉献**
 
-参与调试/自定义修改，请配合 [butterfly-plug](https://github.com/weizwz/butterfly-plug) 项目教程。
+参与调试/自定义修改/开发butterfly主题插件，可配合 [butterfly-plug](https://github.com/weizwz/butterfly-plug) 项目示例，欢迎 `⭐Star`。
 
 ## 文档
 参考 [hexo-butterfly-recommend使用说明](https://weizwz.com/posts/7db60965.html)
