@@ -21,6 +21,11 @@
 npm i hexo-butterfly-recommend --save
 ```
 
+## 升级
+```shell
+npm update hexo-butterfly-recommend --save
+```
+
 ## 默认配置
 将以下配置添加到 `_config.butterfly.yml` 或 `_config.yml`。
 ```yml
@@ -107,4 +112,30 @@ recommend:
       - '2023/11/19/hello-world'
       - '2023/11/21/如何开发hexo扩展插件'
       - '2023/11/21/Copilot-with-Bing-Chat'
+```
+
+## 图标
+图标支持其他字体图标库，需自行引入，以 `iconfont` 为例：
+
+```yml
+tag_plugins:
+  enable: true # 开关
+  CDN:
+    iconfont: /js/ali_font.js #参看 https://butterfly.js.org/posts/4073eda/?highlight=iconfont#iconfont
+# 中间省略
+inject:
+  head:
+    # 引入字体图标 iconfont
+    - <link rel="stylesheet" href="https://at.alicdn.com/xxxxx.css">
+# 中间省略
+recommend:
+    skill: #技能树  fontawesome图标 https://fontawesome.com/search?o=r&m=free&f=brands
+      - name: 'Js'
+        icon: 'iconfont icon-logo-javascript'
+        color: '#fff'
+        background: '#f7cb4f'
+      - name: 'Ts'
+        icon: 'iconfont icon-ts'
+        color: '#fff'
+        background: '#0288d1'
 ```
