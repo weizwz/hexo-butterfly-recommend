@@ -225,10 +225,17 @@ hexo.extend.filter.register('after_generate', function () {
   hexo.extend.injector.register('body_end', user_info_js, 'default');
 
   // 注入静态资源
-  const css = hexo.extend.helper.get('css').bind(hexo)
+  const css = hexo.extend.helper.get('css').bind(hexo);
   // const js = hexo.extend.helper.get('js').bind(hexo)
   hexo.extend.injector.register('head_end', () => {
-    return css(`/css/recommend.css?v=${version}`)
+    return css(`/css/recommend.css?v=${version}`);
   }, 'default')
+
+  hexo.extend.helper.register('priority', function(){
+    // 过滤器优先级，priority 值越低，过滤器会越早执行，默认priority是10
+    const pre_priority = hexo.config.recommend.priority ?  hexo.config.recommend.priority : hexo.theme.config.recommend.priority;
+    const priority = pre_priority ? pre_priority : 10;
+    return priority;
+  })
 })
 
