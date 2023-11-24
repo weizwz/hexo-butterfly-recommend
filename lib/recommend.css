@@ -6,7 +6,8 @@
   --recommend-blank: #000;
   --recommend-gray: #e3e8f7;
   --recommend-white-op: rgba(255, 255, 255, .15);
-  --recommend-margin: 1rem;
+  --recommend-margin: 1.2rem;
+  --recommend-margin-inner: 1rem;
   --recommend-radius: 8px;
   --recommend-shadow: 0 3px 8px 6px rgba(7,17,27,0.05);
   --recommend-skill-shadow: 0 2px 16px -3px rgba(0, 0, 0, .15);
@@ -36,7 +37,7 @@
 
 #recommend {
   width: 100%;
-  margin-bottom: 1rem;
+  margin-bottom: var(--recommend-main);
   padding: 0;
   background: none;
   box-shadow: none;
@@ -48,7 +49,7 @@
   flex-wrap: wrap;
 }
 .recommend-wrapper { 
-  width: calc(50% - 0.5rem);
+  width: calc(50% - var(--recommend-margin) / 2);
   margin-right: var(--recommend-margin);
   height: calc(320px + var(--recommend-margin));
   display: flex;
@@ -59,9 +60,9 @@
 #recommend-banner-wrapper {
   display: flex;
   width: 100%;
-  height: calc(75% - 1rem);
+  height: calc(75% - var(--recommend-margin-inner));
   background: var(--card-bg);
-  margin-bottom: var(--recommend-margin);
+  margin-bottom: var(--recommend-margin-inner);
   overflow: hidden;
   position: relative;
   border-radius: var(--recommend-radius);
@@ -183,7 +184,7 @@
 .recommend-categoryItem {
   width: calc(100% / 3 - .66rem);
   height: 100%;
-  margin-right: var(--recommend-margin);
+  margin-right: var(--recommend-margin-inner);
   border-radius: var(--recommend-radius);
   box-shadow: var(--recommend-shadow);
   overflow: hidden;
@@ -352,8 +353,8 @@
 .recommend-post-item {
   width: calc(33.33% - 0.67rem);
   height: calc(50% - .5rem);
-  margin-right: 1rem;
-  margin-bottom: 1rem;
+  margin-right: var(--recommend-margin-inner);
+  margin-bottom: var(--recommend-margin-inner);
   border-radius: var(--recommend-radius);
   box-shadow: var(--recommend-shadow);
   overflow: hidden;
@@ -418,7 +419,7 @@
     display: none;
   }
   #recommend-banner {
-    height: calc(160px + 1rem);
+    height: calc(160px + var(--recommend-margin-inner));
     width: inherit;
   }
   #recommend-banner-wrapper {
@@ -431,9 +432,9 @@
   .recommend-categoryItem {
     min-width: 200px;
     max-width: 200px;
-    height: calc(50% - .5rem);
+    height: calc(50% - var(--recommend-margin-inner));
     margin-right: 0;
-    margin-bottom: 1rem;
+    margin-bottom: var(--recommend-margin-inner);
     box-shadow: none;
   }
   .recommend-categoryItem:nth-child(2) {
@@ -446,7 +447,7 @@
     width: 100%;
   }
   #recommend-post {
-    height: calc(160px + 1rem);
+    height: calc(160px + var(--recommend-margin-inner));
     width: auto;
     display: flex;
     flex-direction: row;
@@ -478,7 +479,7 @@
     border: solid 1px var(--recommend-gray);
   }
   .recommend-post-item:nth-child(3n) {
-    margin-right: 1rem;
+    margin-right: var(--recommend-margin-inner);
   }
   .recommend-post-item:last-child {
     margin-right: 0;
