@@ -36,7 +36,7 @@
 
 #recommend {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 1rem;
   padding: 0;
   background: none;
   box-shadow: none;
@@ -101,7 +101,7 @@
   transform: rotate(-30deg);
 }
 .recommend-tags-wrapper {
-  margin-top: 7rem;
+  margin-top: 5rem;
 }
 .recommend-tags-line {
   margin-top: 1rem;
