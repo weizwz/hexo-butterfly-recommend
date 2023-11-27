@@ -37,7 +37,7 @@
 
 #recommend {
   width: 100%;
-  margin-bottom: var(--recommend-main);
+  margin-bottom: var(--recommend-margin);
   padding: 0;
   background: none;
   box-shadow: none;
@@ -278,7 +278,7 @@
   pointer-events: none;
 }
 .recommend-post-main.recommend-hide .recommend-post-cover {
-  transform: scale(1.2);
+  transform: scale(1.3);
 }
 .recommend-post-main.recommend-hide .recommend-post-cover-info {
   top: 0;
@@ -293,6 +293,9 @@
   box-shadow: var(--recommend-shadow);
   border-radius: var(--recommend-radius);
   transition: .3s;
+}
+.recommend-post-main:hover .recommend-post-cover {
+  transform: scale(1.1);
 }
 .recommend-post-cover-info {
   position: absolute;
