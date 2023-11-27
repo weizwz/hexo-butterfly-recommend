@@ -424,6 +424,7 @@
   #recommend-banner {
     height: calc(160px + var(--recommend-margin-inner));
     width: inherit;
+    margin-right: var(--recommend-margin-inner);
   }
   #recommend-banner-wrapper {
     display: none;
@@ -435,7 +436,7 @@
   .recommend-categoryItem {
     min-width: 200px;
     max-width: 200px;
-    height: calc(50% - var(--recommend-margin-inner));
+    height: calc(50% - var(--recommend-margin-inner)/2);
     margin-right: 0;
     margin-bottom: var(--recommend-margin-inner);
     box-shadow: none;
@@ -460,7 +461,7 @@
     width: 400px;
     flex: 0 0 auto;
     position: relative;
-    margin-right: 1rem;
+    margin-right: var(--recommend-margin-inner);
   }
   .recommend-post-cover-title {
     -webkit-line-clamp: 2;
