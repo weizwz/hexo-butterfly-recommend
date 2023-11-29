@@ -49,9 +49,9 @@
   flex-wrap: wrap;
 }
 .recommend-wrapper { 
-  width: calc(50% - var(--recommend-margin) / 2);
-  margin-right: var(--recommend-margin);
-  height: calc(320px + var(--recommend-margin));
+  width: calc(50% - var(--recommend-margin-inner) / 2);
+  margin-right: var(--recommend-margin-inner);
+  height: calc(320px + var(--recommend-margin-inner));
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -116,7 +116,7 @@
   transform: translate(-60px)
 }
 .recommend-tags-column {
-  margin-left: var(--recommend-margin);
+  margin-left: 1.2rem;
   user-select: none
 }
 .recommend-tags-column a img {
@@ -182,7 +182,7 @@
   animation: slide-in .6s .2s backwards;
 }
 .recommend-categoryItem {
-  width: calc(100% / 3 - .66rem);
+  width: calc(100% / 3 - var(--recommend-margin-inner) * 2 / 3);
   height: 100%;
   margin-right: var(--recommend-margin-inner);
   border-radius: var(--recommend-radius);
