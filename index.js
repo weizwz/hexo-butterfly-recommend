@@ -10,9 +10,9 @@ const { version } = require('./package.json');
 // 注册静态资源
 hexo.extend.generator.register('recommend_lib', () => [
   {
-    path: 'css/recommend.css',
+    path: 'css/recommend.mini.css',
     data: function () {
-      return fs.createReadStream(path.resolve(path.resolve(__dirname, './lib'), 'recommend.css'));
+      return fs.createReadStream(path.resolve(path.resolve(__dirname, './lib'), 'recommend.mini.css'));
     }
   }
 ])
@@ -163,57 +163,58 @@ hexo.extend.filter.register(
     //挂载容器脚本
     var user_info_js = `
       <script data-pjax>
-        var recommend = {
-          ${pluginname}_init: function() {
-            const ${pluginname}_elist = '${data.exclude}'.split(',');
-            var ${pluginname}_cpage = location.pathname;
-            const ${pluginname}_epage = '${data.enable_page}';
-            var ${pluginname}_flag = 0;
-      
-            for (var i = 0; i < ${pluginname}_elist.length; i++) {
-              if (${pluginname}_cpage.includes(${pluginname}_elist[i])) {
-                ${pluginname}_flag++;
+        if (typeof window.recommend === 'undefined') {
+          window.recommend = {
+            ${pluginname}_init: function() {
+              const ${pluginname}_elist = '${data.exclude}'.split(',');
+              var ${pluginname}_cpage = location.pathname;
+              const ${pluginname}_epage = '${data.enable_page}';
+              var ${pluginname}_flag = 0;
+        
+              for (var i = 0; i < ${pluginname}_elist.length; i++) {
+                if (${pluginname}_cpage.includes(${pluginname}_elist[i])) {
+                  ${pluginname}_flag++;
+                }
               }
-            }
-            if ((${pluginname}_epage === 'all') && (${pluginname}_flag === 0)) {
-              recommend.${pluginname}_injector_config();
-            } else if (${pluginname}_epage === ${pluginname}_cpage) {
-              recommend.${pluginname}_injector_config();
-            }
-          },
-          ${pluginname}_injector_config: function() {
-            var parent_div_git = ${get_layout};
-            var item_html = '${temple_html_text}';
-            console.log('已挂载 ${pluginname}, 使用文档请查看 https://github.com/weizwz/hexo-butterfly-recommend');
-            parent_div_git.insertAdjacentHTML("afterbegin",item_html);
-          },
-          toRandomPost: function() {
-            var posts_path = "${posts_path}".split(',');
-            var randomPost = posts_path[Math.floor(Math.random() * posts_path.length)];
-            recommend.toPost(randomPost);
-          },
-          toPost: function(href) {
-            if (typeof pjax !== 'undefined') pjax.loadUrl('/' + href);
-            else window.location.href = window.location.origin + (href.charAt(0) === '/' ? '' : '/') + href;
-          },
-          hideCover: function() {
-            const $main = document.querySelector("#recommend-post-main");
-            $main.className = 'recommend-post-main recommend-hide';
-          },
-          showCover: function() {
-            const $main = document.querySelector("#recommend-post-main");
-            $main.className = 'recommend-post-main';
-          },
-          postScroll: function(dom) {
-            const e = window.event || arguments.callee.caller.arguments[0];
-            if (document.body.clientWidth <= 1200) {
-              let o = -e.wheelDelta / 2;
-              dom.scrollLeft += o;
-              e.preventDefault();
+              if ((${pluginname}_epage === 'all') && (${pluginname}_flag === 0)) {
+                window.recommend.${pluginname}_injector_config();
+              } else if (${pluginname}_epage === ${pluginname}_cpage) {
+                window.recommend.${pluginname}_injector_config();
+              }
+            },
+            ${pluginname}_injector_config: function() {
+              var parent_div_git = ${get_layout};
+              var item_html = '${temple_html_text}';
+              parent_div_git.insertAdjacentHTML("afterbegin",item_html);
+            },
+            toRandomPost: function() {
+              var posts_path = "${posts_path}".split(',');
+              var randomPost = posts_path[Math.floor(Math.random() * posts_path.length)];
+              window.recommend.toPost(randomPost);
+            },
+            toPost: function(href) {
+              if (typeof pjax !== 'undefined') pjax.loadUrl('/' + href);
+              else window.location.href = window.location.origin + (href.charAt(0) === '/' ? '' : '/') + href;
+            },
+            hideCover: function() {
+              const $main = document.querySelector("#recommend-post-main");
+              $main.className = 'recommend-post-main recommend-hide';
+            },
+            showCover: function() {
+              const $main = document.querySelector("#recommend-post-main");
+              $main.className = 'recommend-post-main';
+            },
+            postScroll: function(dom) {
+              const e = window.event || arguments.callee.caller.arguments[0];
+              if (document.body.clientWidth <= 1200) {
+                let o = -e.wheelDelta / 2;
+                dom.scrollLeft += o;
+                e.preventDefault();
+              }
             }
           }
         }
-        recommend.${pluginname}_init();
+        window.recommend.${pluginname}_init();
       </script>`;
 
     // 此处利用挂载容器实现了二级注入
@@ -223,7 +224,7 @@ hexo.extend.filter.register(
     const css = hexo.extend.helper.get('css').bind(hexo);
     // const js = hexo.extend.helper.get('js').bind(hexo)
     hexo.extend.injector.register('head_end', () => {
-      return css(`/css/recommend.css?v=${version}`);
+      return css(`/css/recommend.mini.css?v=${version}`);
     }, 'default')
   },
   (hexo.config.recommend || hexo.config.theme_config.recommend)['priority'] || 10
