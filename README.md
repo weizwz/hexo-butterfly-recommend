@@ -1,4 +1,10 @@
 # hexo-butterfly-recommend
+<p>
+  <a href="https://www.npmjs.com/package/hexo-butterfly-recommend?activeTab=versions"><img src="https://img.shields.io/npm/v/hexo-butterfly-recommend?color=409eff" alt="Build Status"></a>
+  <a href="https://www.npmjs.com/package/hexo-butterfly-recommend"><img src="https://img.shields.io/npm/dm/hexo-butterfly-recommend" alt="Coverage Status"></a>
+  <a href="https://mit-license.org/"><img src="https://img.shields.io/github/license/weizwz/hexo-butterfly-recommend" alt="Downloads"></a>
+</p>
+
 [hexo-theme-butterfly](https://github.com/jerryc127/hexo-theme-butterfly) 主题的扩展，首页推荐组件 
 
 实际效果展示 [唯之为之的博客](https://weizwz.com) 
