@@ -1,7 +1,7 @@
 {
   "name": "hexo-butterfly-recommend",
-  "version": "1.0.1",
-  "description": "hexo-theme-butterfly主题的扩展，首页推荐",
+  "version": "1.0.2",
+  "description": "Extension to the hexo-theme-butterfly, recommended components on the homepage",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
