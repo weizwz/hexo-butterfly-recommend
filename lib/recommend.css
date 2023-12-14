@@ -36,6 +36,9 @@
   width: 74%;
 }
 @media screen and (max-width: 900px){
+  #recommend.recommend-left + #recent-posts {
+    order: 0;
+  }
   #recommend + div {
     width: 100% !important;
   }
