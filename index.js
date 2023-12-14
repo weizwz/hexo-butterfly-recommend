@@ -170,6 +170,8 @@ hexo.extend.filter.register(
         if (typeof window.recommend === 'undefined') {
           window.recommend = {
             ${pluginname}_init: function() {
+              const $recommend = document.querySelector('#recommend');
+              if($recommend) return;
               const ${pluginname}_elist = '${data.exclude}'.split(',');
               var ${pluginname}_cpage = location.pathname;
               const ${pluginname}_epage = '${data.enable_page}';
