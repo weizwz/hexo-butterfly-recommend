@@ -21,6 +21,9 @@ hexo.extend.generator.register('recommend_lib', () => [
 hexo.extend.filter.register(
   'after_generate', 
   function () {
+    // 获取butterfly布局
+    const layout = hexo.config.aside || hexo.theme.config.aside;
+    const layout_position = layout['position'] || 'right';
     // 获取整体的配置项名称
     const config = hexo.config.recommend || hexo.theme.config.recommend;
     // 如果配置开启
@@ -137,7 +140,8 @@ hexo.extend.filter.register(
       layout_index: config.layout.index ? config.layout.index : 0,
       recommend_list,
       recommend_cover,
-      category
+      category,
+      layout_position
     }
 
     // 渲染页面

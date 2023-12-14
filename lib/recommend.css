@@ -26,6 +26,12 @@
   box-shadow: var(--recommend-shadow);
   transition: all 0.3s;
 }
+#recommend.recommend-left {
+  order: 0;
+}
+#recommend.recommend-left + #recent-posts {
+  order: 2;
+}
 #recent-posts {
   width: 74%;
 }
