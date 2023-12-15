@@ -1,5 +1,6 @@
 :root {
   --recommend-main: #409eff;
+  --recommedn-dark-degree: .8;
   --recommend-deep: rgba(0, 117, 255, .8);
   --recommend-white: #fff;
   --recommend-red: #f04a63;
@@ -497,6 +498,18 @@
   .recommend-post-item:last-child {
     margin-right: 0;
   }
+}
+/* 黑暗模式 */
+[data-theme=dark] .recommend-banner-title-wrapper,
+[data-theme=dark] .recommend-tags-icon,
+[data-theme=dark] #recommend-banner-wrapper #recommend-banner-hover,
+[data-theme=dark] .recommend-categoryItem-button,
+[data-theme=dark] .recommend-post-cover-info,
+[data-theme=dark] .recommend-post-cover,
+[data-theme=dark] .recommend-post-cover-more,
+[data-theme=dark] .recommend-post-item-cover,
+[data-theme=dark] .recommend-post-item-title {
+  filter: brightness(var(--recommedn-dark-degree));
 }
 /*  ======================动画=========================== */
 @keyframes rowup {
