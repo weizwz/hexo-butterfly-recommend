@@ -10,9 +10,9 @@ const { version } = require('./package.json');
 // 注册静态资源
 hexo.extend.generator.register('recommend_lib', () => [
   {
-    path: 'css/recommend.mini.css',
+    path: 'css/recommend.css',
     data: function () {
-      return fs.createReadStream(path.resolve(path.resolve(__dirname, './lib'), 'recommend.mini.css'));
+      return fs.createReadStream(path.resolve(path.resolve(__dirname, './lib'), 'recommend.css'));
     }
   }
 ])
@@ -125,8 +125,25 @@ hexo.extend.filter.register(
       posts_path.push(item.path);
     }
 
+    // color
+    function intColor() {
+      const color = config.color;
+      const defaultColor = {
+        main: '#409eff',
+        deep: '#0075ffdd'
+      };
+      if (!color) {
+        return defaultColor;
+      }
+      const colorStr = color.split(',');
+      return {
+        main: colorStr[0] || defaultColor.main,
+        deep: colorStr.length >= 2 ? colorStr[1] : defaultColor.deep
+      }
+    }
     // 集体声明配置项
     const data = {
+      color: intColor(),
       banner_title: config.banner.title && config.banner.title.length > 0 ? config.banner.title : ['无限热爱', '生活与技术', 'WEIZWZ.COM'],
       banner_skill: {
         skill,
@@ -172,6 +189,8 @@ hexo.extend.filter.register(
             ${pluginname}_init: function() {
               const $recommend = document.querySelector('#recommend');
               if($recommend) return;
+              document.documentElement.style.setProperty('--recommend-main', '${data.color.main}');
+              document.documentElement.style.setProperty('--recommend-deep', '${data.color.deep}');
               const ${pluginname}_elist = '${data.exclude}'.split(',');
               var ${pluginname}_cpage = location.pathname;
               const ${pluginname}_epage = '${data.enable_page}';
@@ -230,7 +249,7 @@ hexo.extend.filter.register(
     const css = hexo.extend.helper.get('css').bind(hexo);
     // const js = hexo.extend.helper.get('js').bind(hexo)
     hexo.extend.injector.register('head_end', () => {
-      return css(`/css/recommend.mini.css?v=${version}`);
+      return css(`/css/recommend.css?v=${version}`);
     }, 'default')
   },
   (hexo.config.recommend || hexo.config.theme_config.recommend)['priority'] || 10

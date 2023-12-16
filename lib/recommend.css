@@ -1,7 +1,7 @@
 :root {
   --recommend-main: #409eff;
+  --recommend-deep: #0075ffdd;
   --recommedn-dark-degree: .8;
-  --recommend-deep: rgba(0, 117, 255, .8);
   --recommend-white: #fff;
   --recommend-red: #f04a63;
   --recommend-blank: #000;
@@ -164,8 +164,8 @@
   opacity: 1;
   padding-left: 2rem;
   background: var(--recommend-deep);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   transform: translateZ(0);
   backface-visibility: hidden;
   transform-style: preserve-3d;
