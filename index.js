@@ -109,9 +109,9 @@ hexo.extend.filter.register(
               }
             }
           }
-          recommend_cover.recommend_title = recommend_cover_item.title || item.title;
-          recommend_cover.recommend_subTitle = recommend_cover_item.subTitle || formateDate(item.date);
-          recommend_cover.recommend_home_cover = recommend_cover_item.img || item.cover || item.top_img || '';
+          recommend_cover.recommend_title = recommend_cover_item.title || recommend_cover.title;
+          recommend_cover.recommend_subTitle = recommend_cover_item.subTitle || formateDate(recommend_cover.date);
+          recommend_cover.recommend_home_cover = recommend_cover_item.img || recommend_cover.cover || recommend_cover.top_img || '';
         }
         // 未有相关配置/有相关配置但未找到 默认取最新一篇文章
         if (!recommend_cover) {
