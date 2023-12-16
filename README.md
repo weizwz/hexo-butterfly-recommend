@@ -107,7 +107,8 @@ recommend:
         - '#18e7ae'
         - '#1eebeb'
   post: 
-    cover: #默认推荐页，不填的话默认取最新一篇文章
+    cover: #默认推荐页
+      enable: true #开关，关闭的话，path，img等无需再配置；开启了但后续无其他配置，默认取最新一篇文章
       path: '2023/11/20/butterfly-recommend使用说明' #推荐界面访问路径 也可设置分类页，需要其余配置都齐全
       img: '/img/cover_default.png' #可为空，默认取cover，没有的话在取 top_img。最前面的/不可省略
       title: 'butterfly-recommend 正式发布了' #推荐标题，不填的话取文章标题
@@ -134,7 +135,7 @@ inject:
   head:
     # 引入字体图标 iconfont
     - <link rel="stylesheet" href="https://at.alicdn.com/xxxxx.css">
-# 中间省略
+# 以上是 hexo-theme-butterfly 原有配置，无需新增
 recommend:
     skill: #技能树  fontawesome图标 https://fontawesome.com/search?o=r&m=free&f=brands
       - name: 'Js'

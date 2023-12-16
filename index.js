@@ -65,6 +65,8 @@ hexo.extend.filter.register(
       { name: '优质资源', path: '/categories/资源/', icon: 'fa-solid fa-gem', color: ['#18e7ae', '#1eebeb'] }
     ]
 
+    // cover 是否开启
+    const recommend_enable = (config.post && config.post.cover && config.post.cover.enable === false) ? false : true;
     // 获取所有文章 过滤推荐文章
     const posts_list = hexo.locals.get('posts').data;
     var recommend_list = [];
@@ -94,28 +96,30 @@ hexo.extend.filter.register(
       }
 
       // 遍历查找 cover
-      if (recommend_cover_item) {
-        // 配置项全的话，不用再遍历
-        if (recommend_cover_item.path && recommend_cover_item.img && recommend_cover_item.title && recommend_cover_item.subTitle) {
-          recommend_cover = recommend_cover_item;
-        } else {
-          for (const item of posts_list) {
-            if (recommend_cover_item.path === item.path || (recommend_cover_item.path + '/' === item.path)) {
-              recommend_cover = item;
-              break;
+      if (recommend_enable) {
+        if (recommend_cover_item) {
+          // 配置项全的话，不用再遍历
+          if (recommend_cover_item.path && recommend_cover_item.img && recommend_cover_item.title && recommend_cover_item.subTitle) {
+            recommend_cover = recommend_cover_item;
+          } else {
+            for (const item of posts_list) {
+              if (recommend_cover_item.path === item.path || (recommend_cover_item.path + '/' === item.path)) {
+                recommend_cover = item;
+                break;
+              }
             }
           }
+          recommend_cover.recommend_title = recommend_cover_item.title || item.title;
+          recommend_cover.recommend_subTitle = recommend_cover_item.subTitle || item.date;
+          recommend_cover.recommend_home_cover = recommend_cover_item.img || item.cover || item.top_img || '';
         }
-        recommend_cover.recommend_title = recommend_cover_item.title || item.title;
-        recommend_cover.recommend_subTitle = recommend_cover_item.subTitle || item.date;
-        recommend_cover.recommend_home_cover = recommend_cover_item.img || item.cover || item.top_img || '';
-      }
-      // 未有相关配置/有相关配置但未找到 默认取最新一篇文章
-      if (!recommend_cover) {
-        recommend_cover = posts_list[posts_list.length - 1];
-        recommend_cover.recommend_title = recommend_cover.title;
-        recommend_cover.recommend_subTitle = recommend_cover.date;
-        recommend_cover.recommend_home_cover = recommend_cover.cover || recommend_cover.top_img || '';
+        // 未有相关配置/有相关配置但未找到 默认取最新一篇文章
+        if (!recommend_cover) {
+          recommend_cover = posts_list[posts_list.length - 1];
+          recommend_cover.recommend_title = recommend_cover.title;
+          recommend_cover.recommend_subTitle = recommend_cover.date;
+          recommend_cover.recommend_home_cover = recommend_cover.cover || recommend_cover.top_img || '';
+        }
       }
     }
 
@@ -227,7 +231,7 @@ hexo.extend.filter.register(
             },
             showCover: function() {
               const $main = document.querySelector("#recommend-post-main");
-              $main.className = 'recommend-post-main';
+              if ($main) $main.className = 'recommend-post-main';
             },
             postScroll: function(dom) {
               const e = window.event || arguments.callee.caller.arguments[0];
