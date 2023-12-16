@@ -37,6 +37,7 @@ npm update hexo-butterfly-recommend --save
 ```yml
 recommend:
   enable: true #开关
+  color: '#409eff,#0075ffdd' #非必选 主题色，两个以,号分隔，第二个是随机逛逛的背景色，要有透明度，也可是rgab的形式，比如： '#409eff,rgba(0, 117, 255, .8)'
   priority: 5 #过滤器优先权 默认10，值越低过滤器越早执行
   enable_page: / #应用页面 /是首页，all所有界面，/categories分类页等
   exclude: #屏蔽页面，可以多个，用,号分隔。仅当enable_page为'all'时生效。
