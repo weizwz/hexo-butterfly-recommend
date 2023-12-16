@@ -110,14 +110,14 @@ hexo.extend.filter.register(
             }
           }
           recommend_cover.recommend_title = recommend_cover_item.title || item.title;
-          recommend_cover.recommend_subTitle = recommend_cover_item.subTitle || item.date;
+          recommend_cover.recommend_subTitle = recommend_cover_item.subTitle || formateDate(item.date);
           recommend_cover.recommend_home_cover = recommend_cover_item.img || item.cover || item.top_img || '';
         }
         // 未有相关配置/有相关配置但未找到 默认取最新一篇文章
         if (!recommend_cover) {
           recommend_cover = posts_list[posts_list.length - 1];
           recommend_cover.recommend_title = recommend_cover.title;
-          recommend_cover.recommend_subTitle = recommend_cover.date;
+          recommend_cover.recommend_subTitle = formateDate(recommend_cover.date);
           recommend_cover.recommend_home_cover = recommend_cover.cover || recommend_cover.top_img || '';
         }
       }
@@ -129,25 +129,9 @@ hexo.extend.filter.register(
       posts_path.push(item.path);
     }
 
-    // color
-    function intColor() {
-      const color = config.color;
-      const defaultColor = {
-        main: '#409eff',
-        deep: '#0075ffdd'
-      };
-      if (!color) {
-        return defaultColor;
-      }
-      const colorStr = color.split(',');
-      return {
-        main: colorStr[0] || defaultColor.main,
-        deep: colorStr.length >= 2 ? colorStr[1] : defaultColor.deep
-      }
-    }
     // 集体声明配置项
     const data = {
-      color: intColor(),
+      color: intColor(config.color),
       banner_title: config.banner.title && config.banner.title.length > 0 ? config.banner.title : ['无限热爱', '生活与技术', 'WEIZWZ.COM'],
       banner_skill: {
         skill,
@@ -254,8 +238,29 @@ hexo.extend.filter.register(
     // const js = hexo.extend.helper.get('js').bind(hexo)
     hexo.extend.injector.register('head_end', () => {
       return css(`/css/recommend.css?v=${version}`);
-    }, 'default')
+    }, 'default');
   },
   (hexo.config.recommend || hexo.config.theme_config.recommend)['priority'] || 10
 )
 
+
+// color初始化
+function intColor(color) {
+  const defaultColor = {
+    main: '#409eff',
+    deep: '#0075ffdd'
+  };
+  if (!color) {
+    return defaultColor;
+  }
+  const colorStr = color.split(',');
+  return {
+    main: colorStr[0] || defaultColor.main,
+    deep: colorStr.length >= 2 ? colorStr[1] : defaultColor.deep
+  }
+}
+// 格式化日期
+function formateDate(dateStr) {
+  const date = new Date(dateStr);
+  return date.toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' });
+}
