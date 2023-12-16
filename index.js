@@ -250,13 +250,12 @@ function intColor(color) {
     main: '#409eff',
     deep: '#0075ffdd'
   };
-  if (!color) {
+  if (!color || color.length <= 0) {
     return defaultColor;
   }
-  const colorStr = color.split(',');
   return {
-    main: colorStr[0] || defaultColor.main,
-    deep: colorStr.length >= 2 ? colorStr[1] : defaultColor.deep
+    main: color[0] || defaultColor.main,
+    deep: color.length >= 2 ? color[1] : defaultColor.deep
   }
 }
 // 格式化日期
