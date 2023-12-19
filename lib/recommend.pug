@@ -32,18 +32,20 @@
       #recommend-category
         each item, index in category
           .recommend-categoryItem
-              a.recommend-categoryItem-button(onclick=`recommend.toPost("${item.path}")` style=`background: linear-gradient(to right, ${item.color[0]}, ${item.color[1]})`)
+              a.recommend-categoryItem-button(onclick=`recommend.toPost("${item.path}")`)
+                .recommend-categoryItem-bg(style=`background: linear-gradient(to right, ${item.color[0]}, ${item.color[1]})`)
                 span.recommend-categoryItem-text=`${item.name}`
                 i(class=`${item.icon}`)
     #recommend-post.recommend-wrapper
       if (recommend_cover)
         #recommend-post-main.recommend-post-main
-          .recommend-post-cover(onclick=`recommend.toPost("${recommend_cover.path}")` style=`background: #409eff url(${recommend_cover.recommend_home_cover}) no-repeat center/cover`)
+          .recommend-post-cover(onclick=`recommend.toPost("${recommend_cover.path}")` style=`background: var(--recommend-main) url(${recommend_cover.recommend_home_cover}) no-repeat center/cover`)
           .recommend-post-cover-wrapper
             .recommend-post-cover-info(onclick=`recommend.toPost("${recommend_cover.path}")`)
               .recommend-post-cover-subTitle=`${recommend_cover.recommend_subTitle}`
               .recommend-post-cover-title=`${recommend_cover.recommend_title}`
             .recommend-post-cover-more(onclick='window.event.cancelBubble=true;recommend.hideCover();')
+              .recommend-post-cover-more-bg
               i.fa-solid.fa-circle-plus
               span 更多推荐
       .recommend-post-list(onmouseleave='window.event.cancelBubble=true;recommend.showCover();')

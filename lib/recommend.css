@@ -1,10 +1,12 @@
 :root {
   --recommend-main: #409eff;
   --recommend-deep: #0075ffdd;
+  --recommedn-dark: #121212;
   --recommedn-dark-degree: .8;
   --recommend-white: #fff;
+  --recommend-text-highlight-color: #1f2d3d;
   --recommend-red: #f04a63;
-  --recommend-blank: #000;
+  --recommend-black: #000;
   --recommend-gray: #e3e8f7;
   --recommend-white-op: rgba(255, 255, 255, .15);
   --recommend-margin: 1.2rem;
@@ -12,6 +14,9 @@
   --recommend-radius: 8px;
   --recommend-shadow: 0 3px 8px 6px rgba(7,17,27,0.05);
   --recommend-skill-shadow: 0 2px 16px -3px rgba(0, 0, 0, .15);
+}
+[data-theme='dark'] {
+  --recommend-text-highlight-color: rgba(255, 255, 255, .9);
 }
 /* 兼容性修改 */
 #content-inner {
@@ -90,6 +95,7 @@
   left: 2rem;
   display: flex;
   flex-direction: column;
+  color: var(--recommend-text-highlight-color);
 }
 .recommend-banner-title {
   width: 100%;
@@ -151,12 +157,12 @@
   height: 100%;
   top: 0;
   left: 0;
-  background: var(--recommend-main);
   color: var(--recommend-white);
   padding-left: .5rem;
   padding-top: 2rem;
   display: flex;
   flex-direction: column;
+  background: var(--recommend-main);
   opacity: 0;
   transition: cubic-bezier(.71,.15,.16,1.15) .6s;
 }
@@ -166,21 +172,22 @@
   background: var(--recommend-deep);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  transform: translateZ(0);
   backface-visibility: hidden;
+  transform: translateZ(0);
   transform-style: preserve-3d;
   transition: .3s;
-  background-size: 200%;
   cursor: pointer;
 }
 .recommend-banner-text {
   font-size: 5rem;
   line-height: 6rem;
   font-weight: 700;
+  z-index: 2;
 }
 #recommend-banner-wrapper #recommend-banner-hover i {
   font-size: 80px;
   opacity: .6;
+  z-index: 2;
 }
 
 /* 分类 */
@@ -211,6 +218,7 @@
   display: flex;
 }
 .recommend-categoryItem-button {
+  position: relative;
   height: 100%;
   width: 100%;
   border-radius: var(--recommend-radius);
@@ -222,6 +230,14 @@
   transform: scale(1);
   overflow: hidden;
   cursor: pointer;
+}
+.recommend-categoryItem-bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
 .recommend-categoryItem-button:after {
   top: 60%;
@@ -321,19 +337,19 @@
   font-size: 16px;
   line-height: 20px;
   opacity: .9;
-  text-shadow: 1px 1px 1px var(--recommend-blank);
+  text-shadow: 1px 1px 1px var(--recommend-black);
 }
 .recommend-post-cover-title {
   font-size: 28px;
   font-weight: 700;
   line-height: 42px;
-  text-shadow: 3px 3px 5px var(--recommend-blank);
+  text-shadow: 3px 3px 5px var(--recommend-black);
 }
 .recommend-post-cover-more {
   position: absolute;
-  z-index: 2;
   bottom: 2rem;
   right: 2rem;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -342,16 +358,26 @@
   line-height: 40px;
   padding: 10px 15px;
   white-space: nowrap;
-  background: var(--recommend-white-op);
   font-size: 16px;
   color: var(--recommend-white);
   border-radius: 40px;
   transition: .3s;
   cursor: pointer;
-  backdrop-filter: saturate(180%) blur(20px);
   transform: translateZ(0);
 }
-.recommend-post-cover-more:hover {
+.recommend-post-cover-more-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  padding: 10px 15px;
+  border-radius: 40px;
+  background: var(--recommend-white-op);
+  backdrop-filter: saturate(180%) blur(20px);
+}
+.recommend-post-cover-more:hover .recommend-post-cover-more-bg {
   background: var(--recommend-main);
 }
 .recommend-post-cover-more > i {
@@ -412,6 +438,7 @@
   line-height: 1.5;
   font-weight: 700;
   font-size: 1rem;
+  color: var(--recommend-text-highlight-color);
 }
 .recommend-post-item:hover .recommend-post-item-title {
   color: var(--recommend-main);
@@ -492,6 +519,10 @@
     box-shadow: none;
     border: solid 1px var(--recommend-gray);
   }
+  [data-theme=dark] .recommend-post-item {
+    border: none;
+    background: var(--recommedn-dark);
+  }
   .recommend-post-item:nth-child(3n) {
     margin-right: var(--recommend-margin-inner);
   }
@@ -500,15 +531,15 @@
   }
 }
 /* 黑暗模式 */
-[data-theme=dark] .recommend-banner-title-wrapper,
+/* [data-theme=dark] .recommend-banner-title-wrapper, */
 [data-theme=dark] .recommend-tags-icon,
 [data-theme=dark] #recommend-banner-wrapper #recommend-banner-hover,
-[data-theme=dark] .recommend-categoryItem-button,
-[data-theme=dark] .recommend-post-cover-info,
+[data-theme=dark] .recommend-categoryItem-bg,
+/* [data-theme=dark] .recommend-post-cover-info, */
 [data-theme=dark] .recommend-post-cover,
-[data-theme=dark] .recommend-post-cover-more,
-[data-theme=dark] .recommend-post-item-cover,
-[data-theme=dark] .recommend-post-item-title {
+[data-theme=dark] .recommend-post-cover-more-bg,
+[data-theme=dark] .recommend-post-item-cover
+/* [data-theme=dark] .recommend-post-item-title */ {
   filter: brightness(var(--recommedn-dark-degree));
 }
 /*  ======================动画=========================== */
