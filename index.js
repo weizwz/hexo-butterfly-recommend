@@ -226,6 +226,10 @@ hexo.extend.filter.register(
               }
             }
           }
+          console.log(
+            "%c plugin ⭐ ${pluginname} ⭐ https://github.com/weizwz/hexo-butterfly-recommend ",
+            "color: #fff; padding:3px; font-size:12px; background: linear-gradient(90deg, #358bff, #1eebeb);"
+          )
         }
         window.recommend.${pluginname}_init();
       </script>`;
