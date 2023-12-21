@@ -1,8 +1,8 @@
 :root {
   --recommend-main: #409eff;
   --recommend-deep: #0075ffdd;
-  --recommedn-dark: #121212;
-  --recommedn-dark-degree: .8;
+  --recommend-dark: #121212;
+  --recommend-dark-degree: .8;
   --recommend-white: #fff;
   --recommend-text-highlight-color: #1f2d3d;
   --recommend-red: #f04a63;
@@ -521,7 +521,7 @@
   }
   [data-theme=dark] .recommend-post-item {
     border: none;
-    background: var(--recommedn-dark);
+    background: var(--recommend-dark);
   }
   .recommend-post-item:nth-child(3n) {
     margin-right: var(--recommend-margin-inner);
@@ -540,7 +540,10 @@
 [data-theme=dark] .recommend-post-cover-more-bg,
 [data-theme=dark] .recommend-post-item-cover
 /* [data-theme=dark] .recommend-post-item-title */ {
-  filter: brightness(var(--recommedn-dark-degree));
+  filter: brightness(var(--recommend-dark-degree));
+}
+[data-theme=dark] .recommend-post-item {
+  background: var(--recommend-dark);
 }
 /*  ======================动画=========================== */
 @keyframes rowup {
