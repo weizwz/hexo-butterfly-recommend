@@ -404,6 +404,8 @@
 .recommend-post-item.recommend-post-item-overflow {
   overflow: inherit;
   position: relative;
+  z-index: 111;
+  box-shadow: none;
 }
 .recommend-post-item-icon > i {
   font-size: 14px;
@@ -466,42 +468,49 @@
   position: absolute;
   display: flex;
   left: 100%;
+  animation: 6s linear 0s infinite cloud-left;
 }
 .recommend-post-item-decoration:nth-child(1) {
   top: 0;
-  height: 36px;
+  height: 20px;
   z-index: 2;
-  animation: 6s linear 0s infinite cloud-left;
+  animation-duration: 6s;
+  animation-delay: 0s;
 }
 .recommend-post-item-decoration:nth-child(2) {
-  top: 25%;
-  height: 24px;
+  top: 15%;
+  height: 42px;
   z-index: 4;
-  animation: 8s linear 1s infinite cloud-left;
+  animation-duration: 5s;
+  animation-delay: 2s;
 }
 .recommend-post-item-decoration:nth-child(3) {
-  top: 40%;
-  height: 30px;
+  top: 35%;
+  height: 24px;
   z-index: 2;
-  animation: 6s linear 2s infinite cloud-left;
+  animation-duration: 5s;
+  animation-delay: 4s;
 }
 .recommend-post-item-decoration:nth-child(4) {
   top: 50%;
-  height: 50px;
+  height: 36px;
   z-index: 4;
-  animation: 8s linear 3s infinite cloud-left;
+  animation-duration: 8s;
+  animation-delay: 5s;
 }
 .recommend-post-item-decoration:nth-child(5) {
   top: 70%;
-  height: 20px;
+  height: 26px;
   z-index: 2;
-  animation: 6s linear 4s infinite cloud-left;
+  animation-duration: 7s;
+  animation-delay: 3s;
 }
 .recommend-post-item-decoration:nth-child(6) {
   bottom: 0;
   height: 32px;
   z-index: 4;
-  animation: 8s linear 5s infinite cloud-left;
+  animation-duration: 6s;
+  animation-delay: 1s;
 }
 .recommend-post-item-decoration > img {
   height: 100%;
@@ -604,6 +613,9 @@
   }
   .recommend-post-item-decoration-wrapper {
     height: 100%;
+  }
+  .recommend-post-item-decoration {
+    animation-name: cloud-left-mobile;
   }
   .recommend-post-cover-title {
     -webkit-line-clamp: 2;
@@ -724,6 +736,16 @@
   }
 
   to {
-    transform: translateX(-400%);
+    transform: translateX(-18vw);
+  }
+}
+
+@keyframes cloud-left-mobile {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-300px);
   }
 }
