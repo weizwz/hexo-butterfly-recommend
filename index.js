@@ -69,12 +69,14 @@ hexo.extend.filter.register(
     // cover 是否开启
     const recommend_enable = (config.post && config.post.cover && config.post.cover.enable === false) ? false : true;
     // 获取所有文章 过滤推荐文章
-    const paths_completion = config.post.paths_completion || {
+    const def_completion = {
       type: 'posts',
-      text: '龙,祝君龙年大吉,龙福齐天,龙行大运,龙腾虎跃,万事兴龙',
+      text: '书生意气，挥斥方遒,君子不器,龙,天下熙熙，皆为利来；天下攘攘，皆为利往,博观而约取，厚积而薄发,为中华之崛起而读书',
       text_bg: 'rgba(255, 187, 106, .8),rgba(254, 38, 33,.8)', 
-      text_color: '#ffbb6a'
-    };
+      text_color: '#ffbb6a',
+      twelve_color: '#ffbb6a',
+    }
+    const paths_completion = Object.assign(def_completion, config.post.paths_completion);
     const posts_list = hexo.locals.get('posts').data;
     const posts_length = 6
     let recommend_list = [];
@@ -122,7 +124,16 @@ hexo.extend.filter.register(
             recommend_list.push(_post)
             recommend_list[recommend_list.length - 1].completion_type = 'text';
             const twelve = completion_text[postIdx] === '龙';
-            const text = twelve ? resource.dragon : completion_text[postIdx];
+            let twelve_static = resource.dragon
+            if (paths_completion.twelve_color) {
+              const _colors = paths_completion.twelve_color.split(',');
+              if (_colors.length === 1) {
+                twelve_static = twelve_static.replace('url(#RadialGradient1)', _colors[0]);
+              } else {
+                twelve_static = twelve_static.replace('#fd091b', _colors[0]).replace('#ffa731', _colors[1]);
+              }
+            }
+            const text = twelve ? twelve_static : completion_text[postIdx];
             recommend_list[recommend_list.length - 1].completion_text = text;
             recommend_list[recommend_list.length - 1].recommend_cover = _post.cover ? _post.cover : (_post.top_img ? _post.top_img : '');
             // 文字样式
