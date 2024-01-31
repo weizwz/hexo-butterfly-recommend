@@ -6,6 +6,7 @@ const pug = require('pug');
 const path = require('path');
 const fs = require('hexo-fs');
 const { version } = require('./package.json');
+const resource = require('./lib/resource.js')
 
 // 注册静态资源
 hexo.extend.generator.register('recommend_lib', () => [
@@ -49,11 +50,11 @@ hexo.extend.filter.register(
     // 技能在界面分上下两组，无缝循环需要每组至少12个技能
     const line_minSkill = 12;
     const minSkill = skill.length % 2 === 0 ? (skill.length / 2) : Math.floor(skill.length / 2);
-    var maxSkill = skill.length % 2 === 0 ? (skill.length / 2) : Math.ceil(skill.length / 2);
+    let maxSkill = skill.length % 2 === 0 ? (skill.length / 2) : Math.ceil(skill.length / 2);
     // 设置maxSkill是为了保持上下组技能数相同
     maxSkill = maxSkill >= line_minSkill ? maxSkill : line_minSkill;
     const banner_skill_cycle_length = minSkill === 0 ? line_minSkill : Math.ceil(line_minSkill / minSkill);
-    var banner_skill_cycle = [];
+    let banner_skill_cycle = [];
     for (let i = 0; i < banner_skill_cycle_length; i++) {
       banner_skill_cycle.push(i);
     }
@@ -68,9 +69,16 @@ hexo.extend.filter.register(
     // cover 是否开启
     const recommend_enable = (config.post && config.post.cover && config.post.cover.enable === false) ? false : true;
     // 获取所有文章 过滤推荐文章
+    const paths_completion = config.post.paths_completion || {
+      type: 'posts',
+      text: '龙,祝君龙年大吉,龙福齐天,龙行大运,龙腾虎跃,万事兴龙',
+      text_bg: 'rgba(255, 187, 106, .8),rgba(254, 38, 33,.8)', 
+      text_color: '#ffbb6a'
+    };
     const posts_list = hexo.locals.get('posts').data;
-    var recommend_list = [];
-    var recommend_cover = null;
+    const posts_length = 6
+    let recommend_list = [];
+    let recommend_cover = null;
     if (config.post) {
       const recommend_paths = config.post.paths;
       const recommend_cover_item = config.post.cover;
@@ -87,11 +95,57 @@ hexo.extend.filter.register(
             }
           }
         }
-      } else {
-        for (var idx = posts_list.length - 1; idx >= 0 && (posts_list.length - 1 - idx <= 6); idx--) {
-          const item = posts_list[idx];
-          recommend_list.push(item);
-          recommend_list[recommend_list.length - 1].recommend_cover = item.cover ? item.cover : (item.top_img ? item.top_img : '');
+      }
+      // 补全 recommend_list
+      const completion_length = posts_length - recommend_list.length;
+      let completion_type = paths_completion.type;
+      let completion_paths = recommend_paths && recommend_paths.length > 0 ? [].concat(recommend_paths) : [];
+      const completion_text = paths_completion.text ? paths_completion.text.split(',') : paths_completion.text;
+      if (completion_length > 0) {
+        let postIdx = 0;
+        while(recommend_list.length < posts_length) {
+          if (posts_list.length < posts_length && recommend_list.length >= posts_list.length) {
+            completion_type = 'text';
+            if (!completion_text) {
+              break;
+            }
+          }
+          // 除了 posts 都是随机文章
+          let idx = posts_list.length - 1 - postIdx
+          if (completion_type === 'random' || completion_type === 'text') {
+            idx = Math.floor(Math.random() * posts_list.length)
+          }
+          // 复制对象，避免影响之前的文章队列
+          let _post = { ...posts_list[idx] }
+          // text 模式特殊处理
+          if (completion_type === 'text') {
+            recommend_list.push(_post)
+            recommend_list[recommend_list.length - 1].completion_type = 'text';
+            const twelve = completion_text[postIdx] === '龙';
+            const text = twelve ? resource.dragon : completion_text[postIdx];
+            recommend_list[recommend_list.length - 1].completion_text = text;
+            recommend_list[recommend_list.length - 1].recommend_cover = _post.cover ? _post.cover : (_post.top_img ? _post.top_img : '');
+            // 文字样式
+            recommend_list[recommend_list.length - 1].completion_text_style = {
+              text_bg: paths_completion.text_bg.split(','),
+              text_color: paths_completion.text_color
+            };
+            // 生肖年
+            if (twelve) {
+              recommend_list[recommend_list.length - 1].completion_twelve = twelve;
+              recommend_list[recommend_list.length - 1].completion_img = resource.cloud;
+            }
+            postIdx ++;
+          } else {
+            // 去重 去除 _post.path 里前后的 /
+            const _path = _post.path.replace(/^(\s|\/)+|(\s|\/)+$/g, '');
+            if(completion_paths.indexOf(_path + '') === -1) {
+              completion_paths.push(_path)
+              recommend_list.push(_post)
+              recommend_list[recommend_list.length - 1].recommend_cover = _post.cover ? _post.cover : (_post.top_img ? _post.top_img : '');
+              postIdx ++;
+            }
+          }
         }
       }
 
@@ -124,7 +178,7 @@ hexo.extend.filter.register(
     }
 
     // 获取所有文章路径，用于随机跳转
-    var posts_path = [];
+    let posts_path = [];
     for (const item of posts_list) {
       posts_path.push(item.path);
     }
@@ -153,7 +207,7 @@ hexo.extend.filter.register(
     const temple_html_text = config.temple_html ? config.temple_html : pug.renderFile(path.join(__dirname, './lib/recommend.pug'), data);
 
     //注入容器声明
-    var get_layout;
+    let get_layout;
     //若指定为class类型的容器
     if (data.layout_type === 'class') {
       //则根据class类名及序列获取容器
@@ -170,7 +224,7 @@ hexo.extend.filter.register(
     }
 
     //挂载容器脚本
-    var user_info_js = `
+    let user_info_js = `
       <script data-pjax>
         if (typeof window.recommend === 'undefined') {
           window.recommend = {

@@ -50,7 +50,23 @@
               span 更多推荐
       .recommend-post-list(onmouseleave='window.event.cancelBubble=true;recommend.showCover();')
         each item in recommend_list
-          .recommend-post-item
-            .recommend-post-item-cover(onclick=`recommend.toPost("${item.path}")`)
-              img(src=`${item.recommend_cover}` onerror=`this.onerror=null,this.src="/img/404.png"` title=`${item.title}`)
-            .recommend-post-item-title(onclick=`recommend.toPost("${item.path}")` title=`${item.title}`)=`${item.title}`
+          if (item.completion_type && item.completion_type === 'text')
+            if (item.completion_twelve)
+              .recommend-post-item.recommend-post-item-overflow
+                .recommend-post-item-cover(onclick=`recommend.toPost("${item.path}")`)
+                  span !{item.completion_text}
+                .recommend-post-item-decoration-wrapper
+                  each val in [1, 2, 3, 4, 5, 6]
+                    i.recommend-post-item-decoration
+                      img(src=`${item.completion_img}`)
+            else
+              .recommend-post-item.recommend-post-item-text
+                .recommend-post-item-cover(onclick=`recommend.toPost("${item.path}")` style=`background: var(--recommend-main) url(${item.recommend_cover}) no-repeat center/cover`)
+                  img(src=`${item.recommend_cover}` onerror=`this.onerror=null,this.src="/img/404.png"` title=`${item.title}`)
+                  .recommend-post-item-text-wrapper(style=`background: radial-gradient(at 10% 10%,${item.completion_text_style.text_bg[0]}, ${item.completion_text_style.text_bg[item.completion_text_style.text_bg.length-1]})`)
+                .recommend-post-item-title(onclick=`recommend.toPost("${item.path}")` title=`${item.completion_text}` style=`color: ${item.completion_text_style.text_color}` )=`${item.completion_text}`
+          else
+            .recommend-post-item
+              .recommend-post-item-cover(onclick=`recommend.toPost("${item.path}")`)
+                img(src=`${item.recommend_cover}` onerror=`this.onerror=null,this.src="/img/404.png"` title=`${item.title}`)
+              .recommend-post-item-title(onclick=`recommend.toPost("${item.path}")` title=`${item.title}`)=`${item.title}`
