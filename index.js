@@ -105,6 +105,7 @@ hexo.extend.filter.register(
       const completion_text = paths_completion.text ? paths_completion.text.split(',') : paths_completion.text;
       if (completion_length > 0) {
         let postIdx = 0;
+        // 循环添加
         while(recommend_list.length < posts_length) {
           if (posts_list.length < posts_length && recommend_list.length >= posts_list.length) {
             completion_type = 'text';
@@ -119,44 +120,54 @@ hexo.extend.filter.register(
           }
           // 复制对象，避免影响之前的文章队列
           let _post = { ...posts_list[idx] }
-          // text 模式特殊处理
-          if (completion_type === 'text') {
-            recommend_list.push(_post)
-            recommend_list[recommend_list.length - 1].completion_type = 'text';
-            const twelve = completion_text[postIdx] === '龙';
-            let twelve_static = resource.dragon
-            if (paths_completion.twelve_color) {
-              const _colors = paths_completion.twelve_color.split(',');
-              if (_colors.length === 1) {
-                twelve_static = twelve_static.replace('url(#RadialGradient1)', _colors[0]);
-              } else {
-                twelve_static = twelve_static.replace('#fd091b', _colors[0]).replace('#ffa731', _colors[1]);
-              }
-            }
-            const text = twelve ? twelve_static : completion_text[postIdx];
-            recommend_list[recommend_list.length - 1].completion_text = text;
-            recommend_list[recommend_list.length - 1].recommend_cover = _post.cover ? _post.cover : (_post.top_img ? _post.top_img : '');
-            // 文字样式
-            recommend_list[recommend_list.length - 1].completion_text_style = {
-              text_bg: paths_completion.text_bg.split(','),
-              text_color: paths_completion.text_color
-            };
-            // 生肖年
-            if (twelve) {
-              recommend_list[recommend_list.length - 1].completion_twelve = twelve;
-              recommend_list[recommend_list.length - 1].completion_img = resource.cloud;
-            }
-            postIdx ++;
-          } else {
-            // 去重 去除 _post.path 里前后的 /
+
+          // 去重，非文字模式，或者文字模式但是总文章数大于等于6，或者文字模式下recommend_list数未到达总文章数
+          if (completion_type !== 'text' || (completion_type === 'text' && posts_list.length >= posts_length) || (completion_type === 'text' && recommend_list.length < posts_length)) {
             const _path = _post.path.replace(/^(\s|\/)+|(\s|\/)+$/g, '');
             if(completion_paths.indexOf(_path + '') === -1) {
               completion_paths.push(_path)
-              recommend_list.push(_post)
-              recommend_list[recommend_list.length - 1].recommend_cover = _post.cover ? _post.cover : (_post.top_img ? _post.top_img : '');
+              if (completion_type === 'text') {
+                recommend_list.push(getTextPost(_post, postIdx))
+              } else {
+                recommend_list.push(_post)
+                recommend_list[recommend_list.length - 1].recommend_cover = _post.cover ? _post.cover : (_post.top_img ? _post.top_img : '');
+              }
               postIdx ++;
             }
+          } else {
+            recommend_list.push(getTextPost(_post, postIdx))
+            postIdx ++;
           }
+        }
+        // 文字模式处理
+        function getTextPost(_post, idx) {
+          const _newPost = { ..._post }
+          _newPost.completion_type = 'text';
+          // 龙字特效
+          const twelve = completion_text[idx] === '龙';
+          let twelve_static = resource.dragon
+          if (paths_completion.twelve_color) {
+            const _colors = paths_completion.twelve_color.split(',');
+            if (_colors.length === 1) {
+              twelve_static = twelve_static.replace('url(#RadialGradient1)', _colors[0]);
+            } else {
+              twelve_static = twelve_static.replace('#fd091b', _colors[0]).replace('#ffa731', _colors[1]);
+            }
+          }
+          const text = twelve ? twelve_static : completion_text[idx];
+          _newPost.completion_text = text;
+          _newPost.recommend_cover = _newPost.cover ? _newPost.cover : (_newPost.top_img ? _newPost.top_img : '');
+          // 文字样式
+          _newPost.completion_text_style = {
+            text_bg: paths_completion.text_bg.split(','),
+            text_color: paths_completion.text_color
+          };
+          // 生肖年
+          if (twelve) {
+            _newPost.completion_twelve = twelve;
+            _newPost.completion_img = resource.cloud;
+          }
+          return _newPost;
         }
       }
 

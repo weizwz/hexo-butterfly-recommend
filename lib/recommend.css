@@ -403,7 +403,6 @@
 }
 .recommend-post-item.recommend-post-item-overflow {
   overflow: inherit;
-  border: none;
   position: relative;
 }
 .recommend-post-item-icon > i {
@@ -602,6 +601,9 @@
   }
   .recommend-post-item-overflow .recommend-post-item-cover > span > svg {
     transform: rotateZ(55deg) scale(1.2) translate(0, 0);
+  }
+  .recommend-post-item-decoration-wrapper {
+    height: 100%;
   }
   .recommend-post-cover-title {
     -webkit-line-clamp: 2;
