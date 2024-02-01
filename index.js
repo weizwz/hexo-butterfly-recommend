@@ -72,7 +72,7 @@ hexo.extend.filter.register(
     const def_completion = {
       type: 'posts',
       text: '书生意气，挥斥方遒,君子不器,龙,天下熙熙，皆为利来；天下攘攘，皆为利往,博观而约取，厚积而薄发,为中华之崛起而读书',
-      text_bg: 'rgba(255, 187, 106, .8),rgba(254, 38, 33,.8)', 
+      text_bg: 'rgba(254, 38, 33,.8)-rgba(255, 187, 106, .8)', 
       text_color: '#ffbb6a',
       twelve_color: '#ffbb6a',
     }
@@ -159,7 +159,7 @@ hexo.extend.filter.register(
           _newPost.recommend_cover = _newPost.cover ? _newPost.cover : (_newPost.top_img ? _newPost.top_img : '');
           // 文字样式
           _newPost.completion_text_style = {
-            text_bg: paths_completion.text_bg.split(','),
+            text_bg: paths_completion.text_bg.split('-'),
             text_color: paths_completion.text_color
           };
           // 生肖年
