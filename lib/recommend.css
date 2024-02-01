@@ -406,6 +406,7 @@
   position: relative;
   z-index: 100;
   box-shadow: none;
+  background: none;
 }
 .recommend-post-item-icon > i {
   font-size: 14px;
@@ -662,6 +663,9 @@
 }
 [data-theme=dark] .recommend-post-item {
   background: var(--recommend-dark);
+}
+[data-theme=dark] .recommend-post-item.recommend-post-item-overflow {
+  background: none;
 }
 /*  ======================动画=========================== */
 @keyframes rowup {
