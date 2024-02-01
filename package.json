@@ -1,6 +1,6 @@
 {
   "name": "hexo-butterfly-recommend",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Extension to the hexo-theme-butterfly, recommended components on the homepage",
   "main": "index.js",
   "scripts": {
